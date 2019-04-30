@@ -1,6 +1,6 @@
 # project-3
 
-Created by:
+# Created by:
 # Sally Alrawi
 # Chris Cass
 # Renee Hickman
