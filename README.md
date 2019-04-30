@@ -4,3 +4,4 @@
 #### - Sally Alrawi
 #### - Chris Cass
 #### - Renee Hickman
+#### - Taylor Stiger
