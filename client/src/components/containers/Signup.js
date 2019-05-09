@@ -1,6 +1,8 @@
 import React from 'react';
 import {
-  InputGroup,
+  Row,
+  Col,
+
   Button,
   Form
 } from 'react-bootstrap';
@@ -15,40 +17,51 @@ import {
         };
     }
 
-  onChangeText = (key, val) => {
-    this.setState({ [key]: val })
+  onChangeText = (event) => {
+    console.log(event.target.name, event.target.value);
+    this.setState({ [event.target.name]: event.target.value })
   }
-  signUp = async () => {
 
-    const { username, password, email } = this.state
-    
-   
-    //   console.log('user successfully signed up!: ' ,success);
+  onSubmit = (event) => {
+
+      console.log(this.state.email);
     } 
   
  
   render() {
     return (
-        <Form>
-            <Form.Group controlId="formBasicEmail">
-                <Form.Label>Email address</Form.Label>
-                <Form.Control type="email" placeholder="Enter email"/>
-                <Form.Text className="text-muted">
-                We'll never share your email with anyone else.
-                </Form.Text>
-            </Form.Group>
+      <Form onSubmit={this.onSubmit}>
+        <Form.Group as={Row} controlId="formHorizontalEmail">
+          <Form.Label column sm={2}>
+            User Name
+          </Form.Label>
+          <Col sm={10}>
+            <Form.Control name="email" type="email" placeholder="Text" val={this.state.email} onChange={this.onChangeText}/>
+          </Col>
+        </Form.Group>
+        <Form.Group as={Row} controlId="formHorizontalEmail">
+          <Form.Label column sm={2}>
+            Email
+          </Form.Label>
+          <Col sm={10}>
+            <Form.Control name="username" type="text" placeholder="Email" val={this.state.username} onChange={this.onChangeText}/>
+          </Col>
+        </Form.Group>
+        <Form.Group as={Row} controlId="formHorizontalPassword">
+          <Form.Label column sm={2}>
+            Password
+          </Form.Label>
+          <Col sm={10}>
+            <Form.Control name="password" type="password" placeholder="Password" val={this.state.password} onChange={this.onChangeText}/>
+          </Col>
+        </Form.Group>
 
-            <Form.Group controlId="formBasicPassword">
-                <Form.Label>Password</Form.Label>
-                <Form.Control type="password" placeholder="Password" />
-            </Form.Group>
-            <Form.Group controlId="formBasicChecbox">
-                <Form.Check type="checkbox" label="Check me out" />
-            </Form.Group>
-            <Button variant="primary" type="submit">
-                Submit
-            </Button>
-        </Form>
+        <Form.Group as={Row}>
+          <Col sm={{ span: 10, offset: 2 }}>
+            <Button type="submit">Sign in</Button>
+          </Col>
+        </Form.Group>
+      </Form>
     //   <View style={styles.container}>
     //     <TextInput
     //       style={styles.input}

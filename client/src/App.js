@@ -1,13 +1,12 @@
-// eslint-disable-next-line no-unused-vars
-import React, { Component } from 'react'
-import Signup from './components/containers/Signup'
 
-class App extends Component {
+import React from 'react'
+import Signup from './components/containers/Signup'
+// import { BrowserRouter as Router} from 'react-router-dom'
+
+class App extends React.Component {
   render () {
     return (
       <Signup />
-      // eslint-disable-next-line no-undef
-      // <Router path="/" exact component={Signup} />
     )
   }
 }
