@@ -1,0 +1,31 @@
+
+.footer {
+  z-index: 1;
+  display: flex;
+  /* position: absolute; */
+  /* bottom: 0; */
+  justify-content: center;
+  background: #9b2727;
+  /* height: 60px; */
+  width: 100%;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  color: #fff;
+  border-top:1px solid #ddd;
+}
+
+
+.repo{
+  padding-top:0px;
+  padding-bottom:0px;
+  background:#ababab;
+  font-size:.8em;
+  color:#fff;
+}
+
+.repo:hover{
+  color:#fff;
+  background:#999;
+}
+
+

@@ -1,0 +1,23 @@
+
+.navbar{
+    padding-left:10px;
+    padding-top:10px;
+    border-bottom:1px solid #ddd;
+}
+
+
+.main{
+    position:fixed;
+    top:0;
+    width:100%;
+    z-index: 9;
+}
+
+.navbarBg{
+    background:#9b2727;
+    color:#fff;
+}
+
+.navlink a{
+    color:#fff;
+}

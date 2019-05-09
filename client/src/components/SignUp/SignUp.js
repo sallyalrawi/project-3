@@ -1,4 +1,5 @@
 import React from 'react';
+import './style.css';
 import {
   InputGroup,
   Button,
@@ -29,6 +30,7 @@ import {
  
   render() {
     return (
+      <div className="container signup">
         <Form>
             <Form.Group controlId="formBasicEmail">
                 <Form.Label>Email address</Form.Label>
@@ -49,6 +51,7 @@ import {
                 Submit
             </Button>
         </Form>
+        </div>
     //   <View style={styles.container}>
     //     <TextInput
     //       style={styles.input}
