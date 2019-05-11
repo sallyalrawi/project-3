@@ -6,7 +6,8 @@ import Dashboard from "./pages/Dashboard";
 import Rewards from "./pages/Rewards";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Footer from "./components/Footer";
-import './App.css';
+import { AuthProvider } from './Auth'
+import PrivateRout from './privateRoute'
 
 class App extends Component {
   render() {
@@ -15,8 +16,10 @@ class App extends Component {
       <div className="bodyContent">
         <Navigation />
         <SignUp />
+        <AuthProvider>
         <Router>
         <Switch>
+        <PrivateRout exact path = "/" component={Home} authenticated={this.state.authenticated} />
           {/* {!this.props.isSignedIn ? <SignUp /> : <Dashboard />}
           <Route exact path="/" component={SignUp} />
           <Route exact path="/dashboard" component={Dashboard} />
@@ -24,6 +27,7 @@ class App extends Component {
           {/* <Route component={NoMatch} /> */}
         </Switch>
         </Router>
+        </AuthProvider>
       </div>
       <Footer />
       </div>
