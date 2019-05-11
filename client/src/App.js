@@ -39,18 +39,15 @@ class App extends Component {
     // }
 
     return (
-      <AuthProvider>      <Router>
+      <AuthProvider>
+        <Router>    
         <div>
-          <PrivateRoute
-            exact
-            path="/"
-            component={Home}
-          />
+          <PrivateRoute exact path="/" component={Home} />
           <Route exact path="/login" component={LogIn} />
           <Route exact path="/signup" component={SignUp} />
         </div>
-      </Router></AuthProvider>
-
+       </Router>
+      </AuthProvider>
     );
   }
 }

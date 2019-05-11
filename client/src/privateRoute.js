@@ -5,8 +5,8 @@ import { Route, Redirect } from 'react-router-dom'
 import { AuthContext } from './Auth'
 
 const PrivateRout = ({ component: RouteComponet, ...rest }) => {
-  const { currentUser } = useContext(AuthContext) 
-console.log(currentUser)
+  const { currentUser } = useContext(AuthContext)
+  console.log(currentUser)
   return (
     <Route
       {...rest}
@@ -14,7 +14,7 @@ console.log(currentUser)
         currentUser ? (
           <RouteComponet {...routeProps} />
         ) : (
-          <Redirect to={'/login'} />
+          <Redirect to={'/signup'} />
         )
 
       }
