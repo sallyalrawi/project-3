@@ -2,7 +2,7 @@
 // eslint-disable-next-line no-unused-vars
 import React, { useCallback } from 'react'
 import { withRouter } from 'react-router'
-import app from './firebase'
+import app from '../firebase'
 
 const SignUp = ({ history }) => {
   const handleSignUp = useCallback(async event => {

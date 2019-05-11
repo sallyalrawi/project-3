@@ -1,7 +1,7 @@
 import React, { useCallback, useContext } from 'react'
 import { withRouter, Redirect } from 'react-router'
-import app from './firebase'
-import {AuthContext} from './Auth.js'
+import app from '../firebase'
+import {AuthContext} from '../Auth.js'
 
 const Login = ({ history }) => {
     const handleLogin = useCallback(async event => {
@@ -16,11 +16,11 @@ const Login = ({ history }) => {
           }
         }, [history]
         );
-        const { currentUser } = useContext { AuthContext }
+        const value = useContext(AuthContext);
       
-        if (currentUser) {
-            return <Redirect to="/" />
-        }
+        // if (value) {
+        //     return <Redirect to="/" />
+        // }
 
         return(
             <div>
