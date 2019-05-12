@@ -1,15 +1,20 @@
 // eslint-disable-next-line no-unused-vars
-import React, { Component } from 'react'
-import Signup from './components/containers/Signup'
+import React, { Component, Fragment } from 'react';
+import Form from './components/Form';
+import Diary from './components/Diary';
+import Weight from './components/Weight';
 
 class App extends Component {
-  render () {
+  state = { userId: 27 };
+  render() {
     return (
-      <Signup />
-      // eslint-disable-next-line no-undef
-      // <Router path="/" exact component={Signup} />
-    )
+      <Fragment>
+        <Form userId={this.state.userId} />
+        <Diary userId={this.state.userId} />
+        <Weight userId={this.state.userId} />
+      </Fragment>
+    );
   }
 }
 
-export default App
+export default App;
