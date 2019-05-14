@@ -19,25 +19,27 @@ const SignUp = ({ history }) => {
   )
   return (
     <div>
-      <h1>Sign up</h1>
-      <form onSubmit={handleSignUp}>
-        <label>
-          Email
-          <input
-            name="email"
-            type="email"
-            placeholder="Email"
-          />
-        </label>
-        <label>
-          Password
-          <input
-            name="password"
-            type="password"
-            placeholder="Password"
-          />
-        </label>
-        <button type="submit">Sign Up</button>
+      <h1>
+        <small className="text-muted">
+        Sign up</small>
+      </h1>
+      <form className="form-inline" onSubmit={handleSignUp}>
+        <label className="sr-only" >
+          Email </label>
+        <input className="form-control mb-2 mr-sm-2"
+          name="email"
+          type="email"
+          placeholder="Email"
+        />
+        <label className="sr-only">
+          Password</label>
+        <input className="form-control mb-2 mr-sm-2"
+          name="password"
+          type="password"
+          placeholder="Password"
+        />
+
+        <button type="submit" className="btn btn-primary mb-2">Sign Up</button>
       </form>
     </div>
   )
