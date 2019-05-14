@@ -1,17 +1,18 @@
 import React, { Component } from "react";
-// import Diary from './components/Dashboard/Diary'
-// import Graphs from './components/Dashboard/Graphs'
-// import Points from './components/Dashboard/Points'
+import Weight from '../../../components/pages/Dashboard/Weight';
+import Diary from '../../../components/pages/Dashboard/Diary';
 
 class Dashboard extends Component {
         state = {
 
         };
 
-
     render() {
         return (
         <div className="body">
+        <Weight userId ={this.props.userId}/>
+        <Diary userId ={this.props.userId} />
+
 
       </div>
         );

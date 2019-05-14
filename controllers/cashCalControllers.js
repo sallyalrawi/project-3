@@ -1,39 +1,42 @@
 var db = require('../models');
 
-module.exports = function(app) {
-  app.post('/api/diary', (req, res) => {
-    db.Businesses.create(req.body).then(data => {
-      return res.json(data);
-    });
-  });
+module.exports = {
+  createDiary: function(req, res) {
+    const { meal, description, calories } = req.body;
+    // console.log(`user_id: ${req.params.userId}`, food, description, calories);
+    db.Diaries.create({
+      user_id: req.params.userId,
+      meal,
+      description,
+      calories
+    }).then(data => res.json(data));
+  },
 
-  app.get('/api/diary', (req, res) => {
-    db.Businesses.findAll({}).then(data => {
-      return res.json(data);
-    });
-  });
+  getDiary: function(req, res) {
+    db.Diaries.findAll({ where: { user_id: req.params.userId } }).then(data =>
+      res.json(data)
+    );
+  },
 
-  app.post('/api/weight', (req, res) => {
-    db.Devs.create(req.body).then(data => {
-      return res.json(data);
-    });
-  });
+  addWeight: function(req, res) {
+    console.log(`user_id: ${req.params.userId}, weight: ${req.body.weight}`);
+    db.Weights.create({
+      user_id: req.params.userId,
+      weight: req.body.weight
+    }).then(data => res.json(data));
+  },
 
-  app.get('/api/weight', (req, res) => {
-    db.Devs.findAll({}).then(data => {
-      return res.json(data);
-    });
-  });
+  getWeight: function(req, res) {
+    db.Weights.findAll({ where: { user_id: req.params.userId } }).then(data =>
+      res.json(data)
+    );
+  },
 
-  app.post('/api/user', (req, res) => {
-    db.Contacts.create(req.body).then(data => {
-      return res.json(data);
-    });
-  });
+  createUser: function(req, res) {
+    db.Users.create(req.body).then(data => res.json(data));
+  },
 
-  app.get('/api/user', (req, res) => {
-    db.Contacts.findAll({}).then(data => {
-      return res.json(data);
-    });
-  });
+  getUser: function(req, res) {
+    db.Users.findAll({}).then(data => res.json(data));
+  }
 };
