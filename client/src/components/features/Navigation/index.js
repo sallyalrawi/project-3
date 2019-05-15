@@ -7,7 +7,7 @@ function Navigation () {
   return (
     <div className="main">
       <Navbar className="navbarBg navbar-dark" expand="lg">
-        <Navbar.Brand href="/"><img alt="logo" className="logo" width="100%" src="./images/logo.png" /></Navbar.Brand>
+        <Navbar.Brand href="/"><img alt="logo" className="logo" src="./images/cashcal.png" /></Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">

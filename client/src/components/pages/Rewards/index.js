@@ -1,16 +1,15 @@
 import React, { Component } from "react";
+import './style.css'
 
 class Rewards extends Component {
-        state = {
-
-        };
-
 
     render() {
         return (
-        <div className="body">
-
-      </div>
+          <div className="body">
+          <div className="bodyContent">
+          </div>
+        <Footer />
+        </div>
         );
     }
 }

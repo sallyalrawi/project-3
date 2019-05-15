@@ -2,12 +2,10 @@ import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { AuthProvider } from './Auth';
 import PrivateRoute from './privateRoute';
-import Navigation from './components/features/Navigation';
-import Footer from './components/features/Footer';
+import './App.css';
 
 const App = () => (
   <div className="bodyContent">
-  <Navigation />
   <AuthProvider>
     <Router>
       <div>
@@ -15,7 +13,6 @@ const App = () => (
       </div>
     </Router>
   </AuthProvider>
-  <Footer />
   </div>
 );
 

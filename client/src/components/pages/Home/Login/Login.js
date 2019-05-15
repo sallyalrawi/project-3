@@ -3,6 +3,7 @@ import React, { useCallback, useContext } from 'react';
 import { withRouter, Redirect } from 'react-router';
 import app from '../../../../firebase';
 import { AuthContext } from '../../../../Auth.js';
+import {Form, Button} from 'react-bootstrap';
 
 const Login = ({ history }) => {
   const handleLogin = useCallback(
@@ -28,18 +29,24 @@ const Login = ({ history }) => {
 
   return (
     <div>
-      <h1>Log in</h1>
-      <form onSubmit={handleLogin}>
-        <label>
-          Email
-          <input name="email" type="email" placeholder="Email" />
-        </label>
-        <label>
-          Password
-          <input name="password" type="password" placeholder="Password" />
-        </label>
-        <button type="submit">Log in</button>
-      </form>
+
+
+      <Form onSubmit={handleLogin}>
+        <Form.Group controlId="formBasicEmail">
+          <Form.Label>Email address</Form.Label>
+          <Form.Control name="email" type="email" placeholder="Email" />
+        </Form.Group>
+
+        <Form.Group controlId="formBasicPassword">
+          <Form.Label>Password</Form.Label>
+          <Form.Control name="password" type="password" placeholder="Password" />
+        </Form.Group>
+        <Button variant="primary" type="submit">
+          Login
+  </Button>
+      </Form>
+      
+      
     </div>
   );
 };
