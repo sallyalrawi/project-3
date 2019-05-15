@@ -27,3 +27,7 @@ export async function getWeight(userId) {
 export function postWeight(userId, data) {
   return axios.post(`/api/cashCal/weight/${userId}`, data);
 }
+
+export function postUser(userId, data) {
+  return axios.post(`/api/cashCal/user/${userId}`, data);
+}

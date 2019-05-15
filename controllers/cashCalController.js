@@ -3,7 +3,6 @@ var db = require('../models');
 module.exports = {
   createDiary: function(req, res) {
     const { meal, description, calories } = req.body;
-    // console.log(`user_id: ${req.params.userId}`, food, description, calories);
     db.Diaries.create({
       user_id: req.params.userId,
       meal,
@@ -33,10 +32,19 @@ module.exports = {
   },
 
   createUser: function(req, res) {
-    db.Users.create(req.body).then(data => res.json(data));
+    db.Users.create({
+      user_id: req.params.userId,
+      user_name: req.body.name,
+      gender: req.body.gender,
+      age: req.body.age,
+      height: req.body.userHeight,
+      points: 100
+    }).then(data => res.json(data));
   },
 
   getUser: function(req, res) {
-    db.Users.findAll({}).then(data => res.json(data));
+    db.Users.findAll({ where: { user_id: req.params.userId } }).then(data =>
+      res.json(data)
+    );
   }
 };
