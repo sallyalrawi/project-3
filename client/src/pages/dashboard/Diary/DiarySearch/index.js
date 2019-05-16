@@ -1,61 +1,96 @@
 /* eslint-disable import/no-duplicates */
 import React, { Component, Fragment } from 'react'
 // eslint-disable-next-line no-unused-vars
-import DiaryForm from "../../components/DiaryForm/"
-import Foods from "../../components/Foods/"
-
+import DiaryForm from "../../../../components/DiaryForm/"
+// import Foods from "../../components/Foods/"
+import axios from "axios";
+import { Card, ListGroup } from "react-bootstrap"
 
 //https://api.nal.usda.gov/ndb/search/?format=json&q=butter&sort=n&max=25&offset=0&api_key=DEMO_KEY
 
 
-class App extends Component {
+class DiarySearch extends Component {
   state = {
-    foodKeyword: null,
-    foodsList:[]
+    foodKeyword: "",
+    foodsList: [],
+   
   };
 
-  getFood = (event) => {
+  getFood = (foodKeyword) => {
+    axios.get(`https://api.nal.usda.gov/ndb/search/?format=json&q=${foodKeyword}&sort=n&max=25&offset=0&api_key=6fDIrXqchfLy0iPmxZD8eSYlduVoCjOxkGhaUsoH`, {
+
+    })
+      .then((res) => {
+        let foodsListData = res.data.list.item;
+        // NOTE here we have an array of objects 
+        const foodsArray = foodsListData.map(function (data) {
+
+          return { name: data.name, id: data.ndbno }
+        });
+
+        console.log(foodsListData);
+        this.setState({ foodsList: foodsArray })
+      }) .catch (error=> {
+        console.error(error);
+        alert("Please Enter A Valid Food Name")
+      })
+  }
+
+  handleSubmit = (event) => {
     event.preventDefault();
-    const {foodKeyword} = this.state;
-    if(foodKeyword === '') {
-      return alert ('Please Enter A Valid Food Name');
+    const { foodKeyword, value } = this.state;
+    if (foodKeyword === '') {
+      return alert('Please Enter A Valid Food Name');
     }
     this.searchFoods(foodKeyword);
-    this.setState({foodKeyword:'', foodsList:[]});
+    console.log(value)
+    this.setState({ foodKeyword: "", foodsList: [] });
   };
-  
+
   async searchFoods(foodKeyword) {
-    try{
-      const response = await getFood(foodKeyword);
-      this.setState({
-        foodsList:formatAPIResults(response.data.list.items)
-      });
-    } catch(error) {
+    try {
+      const response = await this.getFood(foodKeyword);
+      //this.setState({
+      //   foodsList:formatAPIResults(response.data.list.items)
+      // });
+    } catch (error) {
       throw error;
     }
   }
 
-  saveFood = e => {
-      const {index} = e.target.dataset;
-      const {foodsList} = this.state;
-      postFood(foodsList[index]);
-  };
+  handleChange = (event) => {
+    const { name, value } = event.target;
+    console.log(name, value)
+    this.setState({ [name]: value })
+  }
+
+  // saveFood = e => {
+  //     const {index} = e.target.dataset;
+  //     const {foodsList} = this.state;
+  //     // postFood(foodsList[index]);
+  // };
 
   render() {
     return (
       <Fragment>
         <DiaryForm
-        handleChange={this.handleChange}
-        handleSubmit={this.handleSubmit}
-        value={this.state.foodKeyword} />
-
-        <Foods
+          handleChange={this.handleChange}
+          handleSubmit={this.handleSubmit}
+          value={this.state.foodKeyword}
+        />
+        <Card style={{ width: '18rem' }}>
+          <Card.Header>{this.state.cardHeader}</Card.Header>
+          <ListGroup variant="flush">
+            <ListGroup.Item></ListGroup.Item>
+          </ListGroup>
+        </Card>;
+        {/* <Foods
         foodslist={this.state.foodsList}
         handleFoodsList={this.saveFood}
-        />
+        /> */}
       </Fragment>
     );
   }
 }
 
-export default App
+export default DiarySearch;
