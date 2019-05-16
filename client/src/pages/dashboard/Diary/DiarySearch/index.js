@@ -4,7 +4,7 @@ import React, { Component, Fragment } from 'react'
 import DiaryForm from "../../../../components/DiaryForm/"
 // import Foods from "../../components/Foods/"
 import axios from "axios";
-import { Card, ListGroup } from "react-bootstrap"
+import { Card, Button } from "react-bootstrap"
 
 //https://api.nal.usda.gov/ndb/search/?format=json&q=butter&sort=n&max=25&offset=0&api_key=DEMO_KEY
 
@@ -30,7 +30,7 @@ class DiarySearch extends Component {
 
         console.log(foodsListData);
         this.setState({ foodsList: foodsArray })
-      }) .catch (error=> {
+      }).catch(error => {
         console.error(error);
         alert("Please Enter A Valid Food Name")
       })
@@ -43,16 +43,14 @@ class DiarySearch extends Component {
       return alert('Please Enter A Valid Food Name');
     }
     this.searchFoods(foodKeyword);
-    
-    this.setState({cardHeader:foodKeyword, foodKeyword: ""});
+
+    this.setState({ cardHeader: foodKeyword, foodKeyword: "" });
   };
 
   async searchFoods(foodKeyword) {
     try {
       const response = await this.getFood(foodKeyword);
-      //this.setState({
-      //   foodsList:formatAPIResults(response.data.list.items)
-      // });
+
     } catch (error) {
       throw error;
     }
@@ -64,11 +62,16 @@ class DiarySearch extends Component {
     this.setState({ [name]: value })
   }
 
+  handleClick = (event) => {
+    console.log(event.target.id)
+  }
+
   // saveFood = e => {
   //     const {index} = e.target.dataset;
   //     const {foodsList} = this.state;
   //     // postFood(foodsList[index]);
   // };
+
 
   render() {
     const { foodKeyword, foodsList, cardHeader } = this.state;
@@ -77,17 +80,27 @@ class DiarySearch extends Component {
         <DiaryForm
           handleChange={this.handleChange}
           handleSubmit={this.handleSubmit}
+          // handleClick={this.handleClick}
           value={foodKeyword}
         />
-        <Card style={{ width: '18rem' }}>
-          <Card.Header>{cardHeader}</Card.Header>
-          <ListGroup variant="flush">
-            {foodsList.map(foodItem => {
-               console.log(foodItem)
-              return  <ListGroup.Item key={foodItem.id}>{foodItem.name}</ListGroup.Item>
-            })}
-          </ListGroup>
-        </Card>;
+
+        <Card.Title><b>Searched:{cardHeader}</b></Card.Title>
+
+        {foodsList.map(foodItem => {
+          console.log(foodItem)
+          return (
+
+            <Card key={foodItem.id} style={{ width: '18rem' }}>
+              <Card.Body>
+
+                <Card.Text  >{foodItem.name}</Card.Text>
+                <Button onClick={this.handleClick} id={foodItem.id} variant="primary">Go somewhere</Button>
+              </Card.Body>
+            </Card>
+
+          )
+        })}
+
         {/* <Foods
         foodslist={this.state.foodsList}
         handleFoodsList={this.saveFood}
