@@ -13,7 +13,7 @@ class DiarySearch extends Component {
   state = {
     foodKeyword: "",
     foodsList: [],
-   
+    cardHeader: ""
   };
 
   getFood = (foodKeyword) => {
@@ -43,8 +43,8 @@ class DiarySearch extends Component {
       return alert('Please Enter A Valid Food Name');
     }
     this.searchFoods(foodKeyword);
-    console.log(value)
-    this.setState({ foodKeyword: "", foodsList: [] });
+    
+    this.setState({cardHeader:foodKeyword, foodKeyword: ""});
   };
 
   async searchFoods(foodKeyword) {
@@ -71,17 +71,21 @@ class DiarySearch extends Component {
   // };
 
   render() {
+    const { foodKeyword, foodsList, cardHeader } = this.state;
     return (
       <Fragment>
         <DiaryForm
           handleChange={this.handleChange}
           handleSubmit={this.handleSubmit}
-          value={this.state.foodKeyword}
+          value={foodKeyword}
         />
         <Card style={{ width: '18rem' }}>
-          <Card.Header>{this.state.cardHeader}</Card.Header>
+          <Card.Header>{cardHeader}</Card.Header>
           <ListGroup variant="flush">
-            <ListGroup.Item></ListGroup.Item>
+            {foodsList.map(foodItem => {
+               console.log(foodItem)
+              return  <ListGroup.Item key={foodItem.id}>{foodItem.name}</ListGroup.Item>
+            })}
           </ListGroup>
         </Card>;
         {/* <Foods
