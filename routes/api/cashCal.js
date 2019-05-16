@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const cashCalController = require('../../controllers/cashCalController');
+const cashCalController = require('../../controllers/cashCalControllers');
 
 router
   .route('/diary/:userId')

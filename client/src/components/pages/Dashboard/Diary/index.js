@@ -21,7 +21,7 @@ class Diary extends Component {
   render() {
     return (
       <div>
-      <h1>Diary</h1>;
+      <h1>Diary</h1>
       <DiaryForm userId ={this.props.userId} />
       </div>
       

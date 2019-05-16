@@ -31,6 +31,8 @@
     "firebase": "^6.0.2",
     "if-env": "^1.0.4",
     "mysql2": "^1.6.5",
-    "sequelize": "^5.8.5"
+    "sequelize": "^5.8.5",
+    "babel": "^6.23.0",
+    "babel-preset-react-app": "^9.0.0"
   }
 }

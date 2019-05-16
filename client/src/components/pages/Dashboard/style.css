@@ -1,7 +1,8 @@
-.bodyContent {
+.dashBodyContent {
     min-height:100vh;
     height:100%;
     margin-bottom:-44px;
     padding-top:79px;
+    background:#fff;
    }
   

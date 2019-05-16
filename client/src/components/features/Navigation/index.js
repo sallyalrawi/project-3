@@ -11,8 +11,8 @@ function Navigation () {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
-            <Nav.Link className="navlink" href="/dashboard">My Dashboard</Nav.Link>
-            <Nav.Link className="navlink" href="/rewards">Rewards</Nav.Link>
+            <Nav.Link className="navlink navs" href="/dashboard">My Dashboard</Nav.Link>
+            <Nav.Link className="navlink navs" href="/rewards">Rewards</Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Navbar>
