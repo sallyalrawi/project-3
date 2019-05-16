@@ -1,0 +1,18 @@
+import React from 'react';
+import firebase from '../../../../firebase';
+import Button from 'react-bootstrap/Button';
+import './style.css';
+
+const logOutUser = () => {
+ firebase.auth().signOut();
+};
+const Logout = () => {
+ return <Button 
+    className="logout"
+    variant="light"
+    onClick={logOutUser} 
+    children="Log Out">
+    Logout
+    </Button>;
+};
+export default Logout;

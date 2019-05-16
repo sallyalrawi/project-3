@@ -5,6 +5,7 @@ module.exports = (sequelize, DataTypes) => {
       gender: DataTypes.STRING,
       age: DataTypes.INTEGER,
       height: DataTypes.STRING,
+      weight:DataTypes.INTEGER,
       points: DataTypes.INTEGER
     });
     return User;

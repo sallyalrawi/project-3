@@ -12,7 +12,8 @@ class SignUp extends Component {
     gender: '',
     age: '',
     heightFeet: '',
-    heightInches: ''
+    heightInches: '',
+    weight: ''
   };
   handleChange = e => this.setState({
     [e.target.name]: e.target.value
@@ -30,7 +31,6 @@ class SignUp extends Component {
 
     event.preventDefault()
 
-
     const {
       email,
       password
@@ -44,14 +44,16 @@ class SignUp extends Component {
         gender,
         age,
         heightFeet,
-        heightInches
+        heightInches,
+        weight
       } = this.state;
       const userHeight = parseInt(heightFeet) + parseInt(heightInches);
       const user = {
         name,
         gender,
         age,
-        userHeight
+        userHeight,
+        weight
       };
       postUser(this.props.userId, user);
       this.setState({
@@ -59,7 +61,8 @@ class SignUp extends Component {
         gender: '',
         age: '',
         heightFeet: '',
-        heightInches: ''
+        heightInches: '',
+        weight: ''
       });
 
       this.props.history.push('/')
@@ -99,7 +102,7 @@ class SignUp extends Component {
             <Form.Control
               as="select"
               name="gender"
-              value="this.state.gender"
+              value={this.state.gender}
               onChange={this.handleChange}>
               <option value="">Choose</option>
               <option value="male">Male</option>
@@ -144,31 +147,14 @@ class SignUp extends Component {
               <option value="11">11"</option>
             </Form.Control>
           </Form.Group>
+          <Form.Group controlId="weight">
+          <Form.Label>Weight (lbs)</Form.Label>
+            <Form.Control name="weight" type="text" value={this.state.weight} onChange={this.handleChange} />
+          </Form.Group>
           <Button variant="primary" type="submit">
             Sign Up
   </Button>
         </Form>
-
-        {/* <h1>Sign up</h1>
-      <form onSubmit={handleSignUp}>
-        <label>
-          Email
-          <input
-            name="email"
-            type="email"
-            placeholder="Email"
-          />
-        </label>
-        <label>
-          Password
-          <input
-            name="password"
-            type="password"
-            placeholder="Password"
-          />
-        </label>
-        <button type="submit">Sign Up</button>
-      </form> */}
       </div>
     )
   }

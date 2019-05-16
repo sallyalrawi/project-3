@@ -22,4 +22,24 @@
     color:#fff;
 }
 
+.navbar-dark .navbar-nav .navs{
+    color:#fff;
+}
 
+.navbar-dark .navbar-nav .active{
+    background: rgba(0,0,0,.1)
+}
+/* .navbar-dark .navbar-toggler-icon{ 
+background-image:"data:image/svg+xml;..";
+} */
+
+
+.custom-toggler .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(156,40,40, .75)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+  }
+
+  .custom-toggler.navbar-toggler {
+    border-color: rgb(156,40,40);
+    background:#fff;
+    box-shadow: -2px 2px 2px rgba(0,0,0,.1);
+  } 
