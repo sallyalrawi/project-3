@@ -13,7 +13,9 @@ class DiarySearch extends Component {
   state = {
     foodKeyword: "",
     foodsList: [],
-    cardHeader: ""
+    cardHeader: "",
+    calories:null,
+    units:""
   };
 
   getFood = async (foodKeyword) => {
@@ -26,7 +28,7 @@ class DiarySearch extends Component {
         return { name: data.name, id: data.ndbno }
       });
 
-      console.log(foodsListData);
+      // console.log(foodsListData);
       this.setState({ foodsList: foodsArray })
 
     } catch (error) {
@@ -36,7 +38,7 @@ class DiarySearch extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-    const { foodKeyword, value } = this.state;
+    const { foodKeyword } = this.state;
     if (foodKeyword === '') {
       return alert('Please Enter A Valid Food Name');
     }
@@ -48,24 +50,30 @@ class DiarySearch extends Component {
 
   handleChange = (event) => {
     const { name, value } = event.target;
-    console.log(name, value)
+    // console.log(name, value)
     this.setState({ [name]: value })
   }
 
   handleClick = (event) => {
-    console.log(event.target.id)
+    // console.log(event.target.id)
     const foodID = event.target.id;
 
-
+    this.getFacts(foodID)
   }
 
-  // saveFood = e => {
-  //     const {index} = e.target.dataset;
-  //     const {foodsList} = this.state;
-  //     // postFood(foodsList[index]);
-  // };
-
-
+  getFacts = async (foodID) => {
+    try {
+      const response = await axios.get(`https://api.nal.usda.gov/ndb/reports/?ndbno=${foodID}&type=b&format=json&api_key=6fDIrXqchfLy0iPmxZD8eSYlduVoCjOxkGhaUsoH`);
+      const calories = (response.data.report.food.nutrients[0].value)
+      const units = (response.data.report.food.nutrients[0].unit)
+      // console.log(calories)
+      this.setState({calories, units}, () => {
+        console.log(this.state)
+      })
+    } catch {
+      console.error("error")
+    }
+  }
   render() {
     const { foodKeyword, foodsList, cardHeader } = this.state;
     return (
@@ -80,7 +88,7 @@ class DiarySearch extends Component {
         <Card.Title><b>Searched:{cardHeader}</b></Card.Title>
 
         {foodsList.map(foodItem => {
-          console.log(foodItem)
+          // console.log(foodItem)
           return (
 
             <Card key={foodItem.id} style={{ width: '18rem' }}>
