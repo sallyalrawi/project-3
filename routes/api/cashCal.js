@@ -10,9 +10,13 @@ router
   .route('/weight/:userId')
   .get(cashCalController.getWeight)
   .post(cashCalController.addWeight);
+
 router
   .route('/user/:userId')
   .get(cashCalController.getUser)
-  .post(cashCalController.createUser);
+  .post(cashCalController.createUser)
+  .put(cashCalController.updateUser);
+
+router.route('/rewards').get(cashCalController.getRewards);
 
 module.exports = router;

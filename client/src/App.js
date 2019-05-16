@@ -4,6 +4,7 @@ import Form from './components/Form';
 import Diary from './components/Diary';
 import Weight from './components/Weight';
 import UserDetails from './components/UserDetails';
+import Rewards from './components/Rewards';
 
 class App extends Component {
   state = { userId: 27 };
@@ -14,6 +15,7 @@ class App extends Component {
         <Diary userId={this.state.userId} />
         <Weight userId={this.state.userId} />
         <UserDetails userId={this.state.userId} />
+        <Rewards userId={this.state.userId} />
       </Fragment>
     );
   }

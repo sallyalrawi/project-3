@@ -46,5 +46,17 @@ module.exports = {
     db.Users.findAll({ where: { user_id: req.params.userId } }).then(data =>
       res.json(data)
     );
+  },
+
+  updateUser: function(req, res) {
+    console.log(req.params.userId, req.body);
+    db.Users.update(
+      { points: req.body.points },
+      { where: { user_id: req.params.userId } }
+    ).then(data => res.json(data));
+  },
+
+  getRewards: function(req, res) {
+    db.Rewards.findAll({}).then(data => res.json(data));
   }
 };
