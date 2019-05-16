@@ -16,24 +16,22 @@ class DiarySearch extends Component {
     cardHeader: ""
   };
 
-  getFood = (foodKeyword) => {
-    axios.get(`https://api.nal.usda.gov/ndb/search/?format=json&q=${foodKeyword}&sort=n&max=25&offset=0&api_key=6fDIrXqchfLy0iPmxZD8eSYlduVoCjOxkGhaUsoH`, {
+  getFood = async (foodKeyword) => {
+    try {
+      const response = await axios.get(`https://api.nal.usda.gov/ndb/search/?format=json&q=${foodKeyword}&sort=n&max=25&offset=0&api_key=6fDIrXqchfLy0iPmxZD8eSYlduVoCjOxkGhaUsoH`);
 
-    })
-      .then((res) => {
-        let foodsListData = res.data.list.item;
-        // NOTE here we have an array of objects 
-        const foodsArray = foodsListData.map(function (data) {
+      const foodsListData = response.data.list.item;
+      // NOTE here we have an array of objects 
+      const foodsArray = foodsListData.map(function (data) {
+        return { name: data.name, id: data.ndbno }
+      });
 
-          return { name: data.name, id: data.ndbno }
-        });
+      console.log(foodsListData);
+      this.setState({ foodsList: foodsArray })
 
-        console.log(foodsListData);
-        this.setState({ foodsList: foodsArray })
-      }).catch(error => {
-        console.error(error);
-        alert("Please Enter A Valid Food Name")
-      })
+    } catch (error) {
+      alert('Please Enter A Valid Food Name')
+    }
   }
 
   handleSubmit = (event) => {
@@ -42,19 +40,11 @@ class DiarySearch extends Component {
     if (foodKeyword === '') {
       return alert('Please Enter A Valid Food Name');
     }
-    this.searchFoods(foodKeyword);
+    this.getFood(foodKeyword);
 
     this.setState({ cardHeader: foodKeyword, foodKeyword: "" });
   };
 
-  async searchFoods(foodKeyword) {
-    try {
-      const response = await this.getFood(foodKeyword);
-
-    } catch (error) {
-      throw error;
-    }
-  }
 
   handleChange = (event) => {
     const { name, value } = event.target;
@@ -64,6 +54,9 @@ class DiarySearch extends Component {
 
   handleClick = (event) => {
     console.log(event.target.id)
+    const foodID = event.target.id;
+
+
   }
 
   // saveFood = e => {
