@@ -4,7 +4,7 @@ import React, { Component, Fragment } from 'react'
 import DiaryForm from "../../../../components/DiaryForm/"
 // import Foods from "../../components/Foods/"
 import axios from "axios";
-import { Card, Button } from "react-bootstrap"
+import { Card, Button, Modal } from "react-bootstrap"
 
 //https://api.nal.usda.gov/ndb/search/?format=json&q=butter&sort=n&max=25&offset=0&api_key=DEMO_KEY
 
@@ -14,8 +14,8 @@ class DiarySearch extends Component {
     foodKeyword: "",
     foodsList: [],
     cardHeader: "",
-    calories:null,
-    units:""
+    calories: null,
+    units: ""
   };
 
   getFood = async (foodKeyword) => {
@@ -23,6 +23,7 @@ class DiarySearch extends Component {
       const response = await axios.get(`https://api.nal.usda.gov/ndb/search/?format=json&q=${foodKeyword}&sort=n&max=25&offset=0&api_key=6fDIrXqchfLy0iPmxZD8eSYlduVoCjOxkGhaUsoH`);
 
       const foodsListData = response.data.list.item;
+      console.log(response)
       // NOTE here we have an array of objects 
       const foodsArray = foodsListData.map(function (data) {
         return { name: data.name, id: data.ndbno }
@@ -64,12 +65,13 @@ class DiarySearch extends Component {
   getFacts = async (foodID) => {
     try {
       const response = await axios.get(`https://api.nal.usda.gov/ndb/reports/?ndbno=${foodID}&type=b&format=json&api_key=6fDIrXqchfLy0iPmxZD8eSYlduVoCjOxkGhaUsoH`);
-      const calories = (response.data.report.food.nutrients[0].value)
-      const units = (response.data.report.food.nutrients[0].unit)
-      // console.log(calories)
-      this.setState({calories, units}, () => {
-        console.log(this.state)
-      })
+     console.log(response.data.report.food.nutrients)
+      // const calories = (response.data.report.food.nutrients[0].value)
+      // const units = (response.data.report.food.nutrients[0].unit)
+      // // console.log(calories)
+      // this.setState({ calories, units }, () => {
+      //   console.log(this.state)
+      // })
     } catch {
       console.error("error")
     }
@@ -78,7 +80,13 @@ class DiarySearch extends Component {
     const { foodKeyword, foodsList, cardHeader } = this.state;
     return (
       <Fragment>
-        <DiaryForm
+        <Modal.Dialog>
+  <Modal.Header closeButton>
+    <Modal.Title>Food Search</Modal.Title>
+  </Modal.Header>
+
+  <Modal.Body>
+  <DiaryForm
           handleChange={this.handleChange}
           handleSubmit={this.handleSubmit}
           // handleClick={this.handleClick}
@@ -95,17 +103,21 @@ class DiarySearch extends Component {
               <Card.Body>
 
                 <Card.Text  >{foodItem.name}</Card.Text>
-                <Button onClick={this.handleClick} id={foodItem.id} variant="primary">Go somewhere</Button>
+                <Button onClick={this.handleClick} id={foodItem.id} variant="primary">Select this food</Button>
               </Card.Body>
             </Card>
 
           )
         })}
 
-        {/* <Foods
-        foodslist={this.state.foodsList}
-        handleFoodsList={this.saveFood}
-        /> */}
+  </Modal.Body>
+
+  <Modal.Footer>
+    <Button variant="secondary">Close</Button>
+    <Button variant="primary">Save changes</Button>
+  </Modal.Footer>
+</Modal.Dialog>;
+        
       </Fragment>
     );
   }
