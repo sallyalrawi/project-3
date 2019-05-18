@@ -15,25 +15,30 @@ class DiarySearch extends Component {
     foodsList: [],
     cardHeader: "",
     calories: null,
-    units: ""
+    unit: "",
+    servingQty: null,
+    servingUnit: "",
   };
 
   getFood = async (foodKeyword) => {
+    
     try {
       const response = await axios.get(`https://api.nal.usda.gov/ndb/search/?format=json&q=${foodKeyword}&sort=n&max=25&offset=0&api_key=6fDIrXqchfLy0iPmxZD8eSYlduVoCjOxkGhaUsoH`);
 
       const foodsListData = response.data.list.item;
-      console.log(response)
+      // console.log(response)
       // NOTE here we have an array of objects 
       const foodsArray = foodsListData.map(function (data) {
-        return { name: data.name, id: data.ndbno }
+       console.log(data);
+        return { name: data.name, serving:data.unit, id: data.ndbno }
+       
       });
 
       // console.log(foodsListData);
       this.setState({ foodsList: foodsArray })
 
     } catch (error) {
-      alert('Please Enter A Valid Food Name')
+      // alert('Please Enter A Valid Food Name')
     }
   }
 
@@ -41,7 +46,8 @@ class DiarySearch extends Component {
     event.preventDefault();
     const { foodKeyword } = this.state;
     if (foodKeyword === '') {
-      return alert('Please Enter A Valid Food Name');
+      // return alert('Please Enter A Valid Food Name');
+      console.log("error invalid food name");
     }
     this.getFood(foodKeyword);
 
@@ -62,16 +68,28 @@ class DiarySearch extends Component {
     this.getFacts(foodID)
   }
 
+  // filterCalories = (nutrients) => {
+  //   return nutrients.
+
   getFacts = async (foodID) => {
     try {
-      const response = await axios.get(`https://api.nal.usda.gov/ndb/reports/?ndbno=${foodID}&type=b&format=json&api_key=6fDIrXqchfLy0iPmxZD8eSYlduVoCjOxkGhaUsoH`);
-     console.log(response.data.report.food.nutrients)
-      // const calories = (response.data.report.food.nutrients[0].value)
-      // const units = (response.data.report.food.nutrients[0].unit)
-      // // console.log(calories)
-      // this.setState({ calories, units }, () => {
-      //   console.log(this.state)
-      // })
+      const response = await axios.get(`https://api.nal.usda.gov/ndb/V2/reports?ndbno=${foodID}&type=b&format=json&api_key=6fDIrXqchfLy0iPmxZD8eSYlduVoCjOxkGhaUsoH`);
+     const nutrientList=(response.data.foods[0].food.nutrients)
+     console.log(nutrientList)
+     const caloriesArr = nutrientList.filter(function(el){
+       return el.name === "Energy" && el.unit === "kcal";
+     });
+     const calories = caloriesArr[0].value;
+     const unit = caloriesArr[0].unit;
+     const servingUnit = caloriesArr[0].measures[0].label; 
+     const servingQty = caloriesArr[0].measures[0].qty;
+     console.log(calories, unit, servingQty, servingUnit)
+    
+      
+      
+      this.setState({ calories, unit, servingQty, servingUnit }, () => {
+        console.log(this.state)
+      })
     } catch {
       console.error("error")
     }
@@ -102,7 +120,7 @@ class DiarySearch extends Component {
             <Card key={foodItem.id} style={{ width: '18rem' }}>
               <Card.Body>
 
-                <Card.Text  >{foodItem.name}</Card.Text>
+                <Card.Text  >{foodItem.name}{foodItem.serving}</Card.Text>
                 <Button onClick={this.handleClick} id={foodItem.id} variant="primary">Select this food</Button>
               </Card.Body>
             </Card>
