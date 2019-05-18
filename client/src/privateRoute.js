@@ -1,14 +1,11 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Route } from 'react-router-dom';
-import { AuthContext } from './Auth';
 import Home from './components/pages/Home';
 import Dashboard from './components/pages/Dashboard';
 
-const PrivateRoute = () => {
-  const { currentUser } = useContext(AuthContext);
-
+const PrivateRoute = ({ currentUser }) => {
   const renderRoute = () =>
-    currentUser ? <Dashboard userId={currentUser.uid} /> : <Home />;
+    currentUser ? <Dashboard userId={currentUser.email} /> : <Home />;
 
   return <Route render={renderRoute} />;
 };

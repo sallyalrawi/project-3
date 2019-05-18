@@ -18,7 +18,6 @@ module.exports = {
   },
 
   addWeight: function(req, res) {
-    console.log(`user_id: ${req.params.userId}, weight: ${req.body.weight}`);
     db.Weights.create({
       user_id: req.params.userId,
       weight: req.body.weight

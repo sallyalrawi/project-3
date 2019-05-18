@@ -1,10 +1,10 @@
 /* eslint-disable no-undef */
 // eslint-disable-next-line no-unused-vars
-import React, {Component, useCallback } from 'react';
+import React, { Component, useCallback } from 'react';
 import { withRouter } from 'react-router';
 import app from '../../../../firebase';
 import { Form, Button } from 'react-bootstrap';
-import { postUser } from '../../../../api';
+import { postUser, postWeight } from '../../../../api';
 
 class SignUp extends Component {
   state = {
@@ -15,67 +15,61 @@ class SignUp extends Component {
     heightInches: '',
     weight: ''
   };
-  handleChange = e => this.setState({
-    [e.target.name]: e.target.value
-  });
-
+  handleChange = e =>
+    this.setState({
+      [e.target.name]: e.target.value
+    });
 
   //  const SignUp = ({ history }) => {
 
-
-
-  handleSignUp = 
-  // useCallback
-  // (
+  handleSignUp =
+    // useCallback
+    // (
     async event => {
+      event.preventDefault();
 
-    event.preventDefault()
+      const { email, password } = event.target.elements;
+      try {
+        await app
+          .auth()
+          .createUserWithEmailAndPassword(email.value, password.value);
 
-    const {
-      email,
-      password
-    } = event.target.elements
-    try {
-      await app.auth()
-        .createUserWithEmailAndPassword(email.value, password.value)
+        const {
+          name,
+          gender,
+          age,
+          heightFeet,
+          heightInches,
+          weight
+        } = this.state;
+        const userHeight = parseInt(heightFeet) + parseInt(heightInches);
+        const user = {
+          name,
+          gender,
+          age,
+          userHeight
+        };
+        postUser(email.value, user);
+        postWeight(email.value, { weight });
+        this.setState({
+          name: '',
+          gender: '',
+          age: '',
+          heightFeet: '',
+          heightInches: '',
+          weight: ''
+        });
 
-      const {
-        name,
-        gender,
-        age,
-        heightFeet,
-        heightInches,
-        weight
-      } = this.state;
-      const userHeight = parseInt(heightFeet) + parseInt(heightInches);
-      const user = {
-        name,
-        gender,
-        age,
-        userHeight,
-        weight
-      };
-      postUser(this.props.userId, user);
-      this.setState({
-        name: '',
-        gender: '',
-        age: '',
-        heightFeet: '',
-        heightInches: '',
-        weight: ''
-      });
-
-      this.props.history.push('/')
-    } catch (error) {
-      alert(error)
-    }
-  }
-    // , [history]
+        this.props.history.push('/');
+      } catch (error) {
+        alert(error);
+      }
+    };
+  // , [history]
   // )
   render() {
     return (
       <div>
-
         <Form onSubmit={this.handleSignUp}>
           <Form.Group controlId="name">
             <Form.Label>Name</Form.Label>
@@ -85,7 +79,8 @@ class SignUp extends Component {
               type="text"
               value={this.state.name}
               onChange={this.handleChange}
-              placeholder="Name" />
+              placeholder="Name"
+            />
           </Form.Group>
 
           <Form.Group controlId="email">
@@ -95,7 +90,11 @@ class SignUp extends Component {
 
           <Form.Group controlId="password">
             <Form.Label>Password</Form.Label>
-            <Form.Control name="password" type="password" placeholder="Password" />
+            <Form.Control
+              name="password"
+              type="password"
+              placeholder="Password"
+            />
           </Form.Group>
           <Form.Group controlId="gender">
             <Form.Label>Gender</Form.Label>
@@ -103,7 +102,8 @@ class SignUp extends Component {
               as="select"
               name="gender"
               value={this.state.gender}
-              onChange={this.handleChange}>
+              onChange={this.handleChange}
+            >
               <option value="">Choose</option>
               <option value="male">Male</option>
               <option value="female">Female</option>
@@ -111,7 +111,12 @@ class SignUp extends Component {
           </Form.Group>
           <Form.Group controlId="age">
             <Form.Label>Age</Form.Label>
-            <Form.Control name="age" type="text" value={this.state.age} onChange={this.handleChange} />
+            <Form.Control
+              name="age"
+              type="text"
+              value={this.state.age}
+              onChange={this.handleChange}
+            />
           </Form.Group>
           <Form.Group controlId="heightFeet">
             <Form.Label>Height</Form.Label>
@@ -119,7 +124,8 @@ class SignUp extends Component {
               as="select"
               name="heightFeet"
               value={this.state.heightFeet}
-              onChange={this.handleChange}>
+              onChange={this.handleChange}
+            >
               <option value="">Feet</option>
               <option value="36">3'</option>
               <option value="48">4'</option>
@@ -131,7 +137,8 @@ class SignUp extends Component {
               as="select"
               name="heightInches"
               value={this.state.heightInches}
-              onChange={this.handleChange}>
+              onChange={this.handleChange}
+            >
               <option value="">Inches</option>
               <option value="0">0"</option>
               <option value="1">1"</option>
@@ -148,16 +155,21 @@ class SignUp extends Component {
             </Form.Control>
           </Form.Group>
           <Form.Group controlId="weight">
-          <Form.Label>Weight (lbs)</Form.Label>
-            <Form.Control name="weight" type="text" value={this.state.weight} onChange={this.handleChange} />
+            <Form.Label>Weight (lbs)</Form.Label>
+            <Form.Control
+              name="weight"
+              type="text"
+              value={this.state.weight}
+              onChange={this.handleChange}
+            />
           </Form.Group>
           <Button variant="primary" type="submit">
             Sign Up
-  </Button>
+          </Button>
         </Form>
       </div>
-    )
+    );
   }
 }
 
-export default withRouter(SignUp)
+export default withRouter(SignUp);

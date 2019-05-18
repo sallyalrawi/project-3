@@ -1,21 +1,25 @@
-import React from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
-import { AuthProvider } from './Auth';
+import React, { Fragment, useContext } from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { AuthContext } from './Auth';
 import PrivateRoute from './privateRoute';
 import './App.css';
-import Dashboard from './components/pages/Dashboard';
 import Rewards from './components/pages/Rewards';
 
-const App = () => (
-  <div className="bodyContent">
-  <AuthProvider>
-    <Router>
-      <div>
-        <PrivateRoute exact path="/" />
-      </div>
-    </Router>
-  </AuthProvider>
-  </div>
-);
+const App = () => {
+  const { currentUser } = useContext(AuthContext);
+  const path = currentUser ? '/dashboard' : '/';
+  return (
+    <div className="bodyContent">
+      <Router>
+        <Fragment>
+          <Switch>
+            <PrivateRoute exact path={path} currentUser={currentUser} />
+            <Route exact path="/rewards" component={Rewards} />
+          </Switch>
+        </Fragment>
+      </Router>
+    </div>
+  );
+};
 
 export default App;
