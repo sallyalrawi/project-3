@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom'
 import Home from './components/Home'
 import LogIn from './components/Login'
 import SignUp from './components/SignUp'
+import planning from './components/planning'
 // eslint-disable-next-line no-unused-vars
 import { AuthProvider } from './Auth'
 // eslint-disable-next-line no-unused-vars
@@ -33,11 +34,7 @@ class App extends Component {
 
   render() {
     const { authenticated, loading } = this.state;
-
-    // if (loading) {
-    //   return <p>Loading..</p>;
-    // }
-
+    
     return (
       <AuthProvider>
         <Router>    
@@ -45,6 +42,7 @@ class App extends Component {
           <PrivateRoute exact path="/" component={Home} />
           <Route exact path="/login" component={LogIn} />
           <Route exact path="/signup" component={SignUp} />
+          <Route exact path="/plannig" component={planning} />
         </div>
        </Router>
       </AuthProvider>
