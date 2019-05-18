@@ -4,15 +4,18 @@ import Button from 'react-bootstrap/Button';
 import './style.css';
 
 const logOutUser = () => {
- firebase.auth().signOut();
+  firebase.auth().signOut();
 };
 const Logout = () => {
- return <Button 
-    className="logout"
-    variant="light"
-    onClick={logOutUser} 
-    children="Log Out">
-    Logout
-    </Button>;
+  return (
+    <Button
+      className="logout"
+      variant="light"
+      onClick={logOutUser}
+      children="Log Out"
+    >
+      Logout
+    </Button>
+  );
 };
 export default Logout;

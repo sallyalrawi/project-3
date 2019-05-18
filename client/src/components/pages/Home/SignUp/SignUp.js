@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 // eslint-disable-next-line no-unused-vars
-import React, { Component, useCallback } from 'react';
+import React, { Component } from 'react';
 import { withRouter } from 'react-router';
 import app from '../../../../firebase';
 import { Form, Button } from 'react-bootstrap';
@@ -15,58 +15,53 @@ class SignUp extends Component {
     heightInches: '',
     weight: ''
   };
+
   handleChange = e =>
     this.setState({
       [e.target.name]: e.target.value
     });
 
-  //  const SignUp = ({ history }) => {
+  handleSignUp = async event => {
+    event.preventDefault();
 
-  handleSignUp =
-    // useCallback
-    // (
-    async event => {
-      event.preventDefault();
+    const { email, password } = event.target.elements;
+    try {
+      await app
+        .auth()
+        .createUserWithEmailAndPassword(email.value, password.value);
 
-      const { email, password } = event.target.elements;
-      try {
-        await app
-          .auth()
-          .createUserWithEmailAndPassword(email.value, password.value);
+      const {
+        name,
+        gender,
+        age,
+        heightFeet,
+        heightInches,
+        weight
+      } = this.state;
+      const userHeight = parseInt(heightFeet) + parseInt(heightInches);
+      const user = {
+        name,
+        gender,
+        age,
+        userHeight
+      };
+      postUser(email.value, user);
+      postWeight(email.value, { weight });
+      this.setState({
+        name: '',
+        gender: '',
+        age: '',
+        heightFeet: '',
+        heightInches: '',
+        weight: ''
+      });
 
-        const {
-          name,
-          gender,
-          age,
-          heightFeet,
-          heightInches,
-          weight
-        } = this.state;
-        const userHeight = parseInt(heightFeet) + parseInt(heightInches);
-        const user = {
-          name,
-          gender,
-          age,
-          userHeight
-        };
-        postUser(email.value, user);
-        postWeight(email.value, { weight });
-        this.setState({
-          name: '',
-          gender: '',
-          age: '',
-          heightFeet: '',
-          heightInches: '',
-          weight: ''
-        });
+      this.props.history.push('/dashboard');
+    } catch (error) {
+      alert(error);
+    }
+  };
 
-        this.props.history.push('/');
-      } catch (error) {
-        alert(error);
-      }
-    };
-  // , [history]
-  // )
   render() {
     return (
       <div>

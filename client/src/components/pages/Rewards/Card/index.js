@@ -17,7 +17,7 @@ const Card = ({ reward, handlePurchase }) => (
       </a>
       <button
         className="btn btn-success"
-        data-points={reward.points}
+        data-cost={reward.points}
         onClick={handlePurchase}
       >
         Buy

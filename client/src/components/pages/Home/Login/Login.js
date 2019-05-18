@@ -1,9 +1,8 @@
 /* eslint-disable no-unused-vars */
-import React, { useCallback, useContext } from 'react';
-import { withRouter, Redirect } from 'react-router';
+import React, { useCallback } from 'react';
+import { withRouter } from 'react-router-dom';
 import app from '../../../../firebase';
-import { AuthContext } from '../../../../Auth.js';
-import {Form, Button} from 'react-bootstrap';
+import { Form, Button } from 'react-bootstrap';
 
 const Login = ({ history }) => {
   const handleLogin = useCallback(
@@ -14,23 +13,16 @@ const Login = ({ history }) => {
         await app
           .auth()
           .signInWithEmailAndPassword(email.value, password.value);
-        history.push('/');
+        history.push('/dashboard');
       } catch (error) {
         alert(error);
       }
     },
     [history]
   );
-  const value = useContext(AuthContext);
-
-  // if (value) {
-  //     return <Redirect to="/" />
-  // }
 
   return (
     <div>
-
-
       <Form onSubmit={handleLogin}>
         <Form.Group controlId="formBasicEmail">
           <Form.Label>Email address</Form.Label>
@@ -39,14 +31,16 @@ const Login = ({ history }) => {
 
         <Form.Group controlId="formBasicPassword">
           <Form.Label>Password</Form.Label>
-          <Form.Control name="password" type="password" placeholder="Password" />
+          <Form.Control
+            name="password"
+            type="password"
+            placeholder="Password"
+          />
         </Form.Group>
         <Button variant="primary" type="submit">
           Login
-  </Button>
+        </Button>
       </Form>
-      
-      
     </div>
   );
 };

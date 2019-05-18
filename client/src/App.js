@@ -13,8 +13,12 @@ const App = () => {
       <Router>
         <Fragment>
           <Switch>
-            <PrivateRoute exact path={path} currentUser={currentUser} />
-            <Route exact path="/rewards" component={Rewards} />
+            <PrivateRoute path={path} currentUser={currentUser} />
+            <Route
+              exact
+              path="/rewards"
+              render={props => <Rewards {...props} currentUser={currentUser} />}
+            />
           </Switch>
         </Fragment>
       </Router>
