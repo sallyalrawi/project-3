@@ -1,24 +1,13 @@
-// eslint-disable-next-line no-unused-vars
-import React, { useContext } from 'react'
-// eslint-disable-next-line no-unused-vars
-import { Route, Redirect } from 'react-router-dom'
-import { AuthContext } from './Auth'
+import React from 'react';
+import { Route } from 'react-router-dom';
+import Home from './components/pages/Home';
+import Dashboard from './components/pages/Dashboard';
 
-const PrivateRout = ({ component: RouteComponet, ...rest }) => {
-  const { currentUser } = useContext(AuthContext)
-  console.log(currentUser)
-  return (
-    <Route
-      {...rest}
-      render={routeProps =>
-        currentUser ? (
-          <RouteComponet {...routeProps} />
-        ) : (
-          <Redirect to={'/signup'} />
-        )
+const PrivateRoute = ({ currentUser, path }) => {
+  const renderRoute = () =>
+    currentUser ? <Dashboard userId={currentUser.email} /> : <Home />;
 
-      }
-    />
-  )
-}
-export default PrivateRout
+  return <Route exact path={path} render={renderRoute} />;
+};
+
+export default PrivateRoute;
