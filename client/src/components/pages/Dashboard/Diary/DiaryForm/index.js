@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { postDiary } from '../../../../../api';
-
+import DiarySearchModal from '../DiarySearchModal/'
 class DiaryForm extends Component {
   state = { meal: '', description: '', calories: '' };
 
@@ -12,9 +12,12 @@ class DiaryForm extends Component {
     this.setState({ meal: '', description: '', calories: '' });
   };
 
+  
+
   render() {
     return (
       <Fragment>
+        <DiarySearchModal/>
         <form onSubmit={this.handleSubmit}>
           <label htmlFor="meal">Meal</label>
           <input

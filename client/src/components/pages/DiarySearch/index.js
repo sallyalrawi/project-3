@@ -1,10 +1,11 @@
 /* eslint-disable import/no-duplicates */
 import React, { Component, Fragment } from 'react'
 // eslint-disable-next-line no-unused-vars
-import DiaryForm from "../../../../components/DiaryForm/"
+import DiaryForm from "../../../../DiaryForm"
 // import Foods from "../../components/Foods/"
 import axios from "axios";
 import { Card, Button, Modal, Container,ListGroup } from "react-bootstrap"
+import {Modal} from "react-bootstrap/Modal"
 
 //https://api.nal.usda.gov/ndb/search/?format=json&q=butter&sort=n&max=25&offset=0&api_key=DEMO_KEY
 
@@ -29,7 +30,7 @@ class DiarySearch extends Component {
       // console.log(response)
       // NOTE here we have an array of objects 
       const foodsArray = foodsListData.map(function (data) {
-        console.log(data);
+        // console.log(data);
         return { name: data.name, serving: data.unit, id: data.ndbno }
 
       });
@@ -96,19 +97,12 @@ class DiarySearch extends Component {
     return (
       <Fragment>
         <Container>
-          <Card style={{ width: '18rem' }}>
-            <ListGroup variant="flush">
-              <ListGroup.Item>{calories} {unit} for { servingQty} {servingUnit}</ListGroup.Item>
-              <ListGroup.Item>Dapibus ac facilisis in</ListGroup.Item>
-              <ListGroup.Item>Vestibulum at eros</ListGroup.Item>
-            </ListGroup>
-          </Card>
-        <Modal.Dialog>
+          <Modal.Dialog>
             <Modal.Header closeButton>
               <Modal.Title>Food Search</Modal.Title>
             </Modal.Header>
 
-            <Modal.Body>
+            <Modal.Body style={{'max-height': 'calc(100vh - 210px)', 'overflow-y': 'auto'}}>
               <DiaryForm
                 handleChange={this.handleChange}
                 handleSubmit={this.handleSubmit}
@@ -116,19 +110,19 @@ class DiarySearch extends Component {
                 value={foodKeyword}
               />
 
-              <Card.Title><b>Searched:{cardHeader}</b></Card.Title>
+              <Container><b>Searched:{cardHeader}</b></Container>
 
               {foodsList.map(foodItem => {
                 // console.log(foodItem)
                 return (
 
-                  <Card key={foodItem.id} style={{ width: '18rem' }}>
-                    <Card.Body>
+                  <p className="foodListItems" key={foodItem.id}>
+                    
 
-                      <Card.Text  >{foodItem.name}</Card.Text>
+                      {foodItem.name}
                       <Button onClick={this.handleClick} id={foodItem.id} variant="primary">Select this food</Button>
-                    </Card.Body>
-                  </Card>
+                    
+                  </p>
 
                 )
               })}
