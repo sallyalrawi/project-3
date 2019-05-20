@@ -68,7 +68,6 @@ class Rewards extends Component {
     return (
       <div className="rewardbody">
         <div className="rewardBodyContent">
-          <Navigation />
           <div className="rewardCardWrapper container-fluid">
           <h1>
             Name: {this.state.user_name} Points: {this.state.points}{' '}
@@ -79,7 +78,6 @@ class Rewards extends Component {
           </div>
           </div>
         </div>
-        <Footer />
       </div>
     );
   }
