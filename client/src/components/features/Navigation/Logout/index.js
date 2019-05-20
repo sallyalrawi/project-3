@@ -1,4 +1,5 @@
 import React from 'react';
+import { Redirect } from 'react-router-dom';
 import firebase from '../../../../firebase';
 import Button from 'react-bootstrap/Button';
 import './style.css';
@@ -13,6 +14,7 @@ const Logout = () => {
       variant="light"
       onClick={logOutUser}
       children="Log Out"
+      href="/"
     >
       Logout
     </Button>

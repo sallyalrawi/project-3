@@ -7,10 +7,15 @@
 
 
 .main{
+    display:block;
     position:fixed;
     top:0;
     width:100%;
     z-index: 9;
+}
+
+.hideNav{
+    display:none;
 }
 
 .navbarBg{

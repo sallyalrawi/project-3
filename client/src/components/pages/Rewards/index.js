@@ -69,12 +69,14 @@ class Rewards extends Component {
       <div className="rewardbody">
         <div className="rewardBodyContent">
           <Navigation />
+          <div className="rewardCardWrapper container-fluid">
           <h1>
             Name: {this.state.user_name} Points: {this.state.points}{' '}
             {this.state.message}
           </h1>
           <div className="card-group">
             {renderCards(this.state.rewards, this.handlePurchase)}
+          </div>
           </div>
         </div>
         <Footer />

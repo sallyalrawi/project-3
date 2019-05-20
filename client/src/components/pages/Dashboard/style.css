@@ -2,7 +2,23 @@
     min-height:100vh;
     height:100%;
     margin-bottom:-44px;
-    padding-top:79px;
+    padding-top:77px;
     background:#fff;
+    padding-bottom:77px;
    }
+
+
+   .box{
+       border-bottom:1px solid #ddd;
+   }
+
   
+
+   .cardLook{
+       border-radius: 0;
+       background:#f9f9f9;
+       border:0;
+       /* border-bottom:1px solid #ddd; */
+       padding: 20px 10px;
+       margin-bottom:15px;
+   }
