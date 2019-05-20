@@ -1,7 +1,7 @@
 import React from 'react'
 import './style.css'
 
-const DiaryFormComponent = ({ handleChange, handleSubmit, value }) => {
+const ModalSearchbar = ({ handleChange, handleSubmit, value }) => {
   return (
     <div>
       <form className="form-centered" onChangeCapture={handleSubmit} onSubmit={handleSubmit}>
@@ -16,4 +16,4 @@ const DiaryFormComponent = ({ handleChange, handleSubmit, value }) => {
   );
 }
 
-export default DiaryFormComponent;
+export default ModalSearchbar;

@@ -1,7 +1,7 @@
 /* eslint-disable import/no-duplicates */
 import React, { Component, Fragment } from 'react'
 // import { postDiary } from '../../../../../api';
-import DiaryFormComponent from '../ModalSearchbar/index'
+import ModalSearchbar from '../ModalSearchbar/index'
 import axios from "axios";
 import { Card, Button, Modal, Container } from "react-bootstrap"
 
@@ -133,7 +133,7 @@ render() {
 
         <Modal.Body style={{ 'maxHeight': 'calc(100vh - 210px)', 'overflowY': 'auto' }}>
           <Container>
-            <DiaryFormComponent
+            <ModalSearchbar
               handleChange={this.handleChange}
               handleSubmit={this.handleSubmit}
               // handleClick={this.handleClick}
