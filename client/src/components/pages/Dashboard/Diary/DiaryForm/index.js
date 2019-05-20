@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { postDiary } from '../../../../../api';
-import DiarySearchModal from '../DiarySearchModal/'
+import DiarySearchModal from '../DiarySearchModal/';
+
 class DiaryForm extends Component {
   state = { meal: '', description: '', calories: '' };
 
@@ -10,14 +11,21 @@ class DiaryForm extends Component {
     e.preventDefault();
     postDiary(this.props.userId, this.state);
     this.setState({ meal: '', description: '', calories: '' });
-  };
-
   
+  }
+
+  modalSubmit = (data) => {
+   
+    postDiary(this.props.userId, data);
+      
+  }
 
   render() {
     return (
       <Fragment>
-        <DiarySearchModal/>
+        <DiarySearchModal  
+        modalSubmit={this.modalSubmit}
+        />
         <form onSubmit={this.handleSubmit}>
           <label htmlFor="meal">Meal</label>
           <input
