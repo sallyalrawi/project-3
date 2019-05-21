@@ -1,47 +1,32 @@
-import React, { Component, Fragment } from 'react';
-import { postDiary } from '../../../../../api';
+import React, { Fragment } from 'react';
 
-class DiaryForm extends Component {
-  state = { meal: '', description: '', calories: '' };
-
-  handleChange = e => this.setState({ [e.target.name]: e.target.value });
-
-  handleSubmit = e => {
-    e.preventDefault();
-    postDiary(this.props.userId, this.state);
-    this.setState({ meal: '', description: '', calories: '' });
-  };
-
-  render() {
-    return (
-      <Fragment>
-        <form onSubmit={this.handleSubmit}>
-          <label htmlFor="meal">Meal</label>
-          <input
-            onChange={this.handleChange}
-            type="text"
-            name="meal"
-            value={this.state.meal}
-          />
-          <label htmlFor="description">Description</label>
-          <input
-            onChange={this.handleChange}
-            type="text"
-            name="description"
-            value={this.state.description}
-          />
-          <label htmlFor="calories">Calories</label>
-          <input
-            onChange={this.handleChange}
-            type="text"
-            name="calories"
-            value={this.state.calories}
-          />
-          <button type="submit">Submit</button>
-        </form>
-      </Fragment>
-    );
-  }
-}
+const DiaryForm = props => (
+  <Fragment>
+    <form onSubmit={props.handleDiarySubmit}>
+      <label htmlFor="meal">Meal</label>
+      <input
+        onChange={props.handleChange}
+        type="text"
+        name="meal"
+        value={props.meal}
+      />
+      <label htmlFor="description">Description</label>
+      <input
+        onChange={props.handleChange}
+        type="text"
+        name="description"
+        value={props.description}
+      />
+      <label htmlFor="calories">Calories</label>
+      <input
+        onChange={props.handleChange}
+        type="text"
+        name="calories"
+        value={props.calories}
+      />
+      <button type="submit">Submit</button>
+    </form>
+  </Fragment>
+);
 
 export default DiaryForm;
