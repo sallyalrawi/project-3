@@ -1,18 +1,17 @@
 {
   "development": {
     "username": "root",
-<<<<<<< HEAD
+
+
     "password": "Tinker1224",
-=======
-    "password": "1213",
->>>>>>> 37beebfdd4adaee3a10ab45355c558cf0424b083
+
     "database": "cashcal_db",
     "host": "localhost",
     "dialect": "mysql"
   },
   "test": {
     "username": "root",
-    "password": "1213",
+    "password": "d0ntsayThat!",
     "database": "cashcal_db",
     "host": "localhost",
     "dialect": "mysql",

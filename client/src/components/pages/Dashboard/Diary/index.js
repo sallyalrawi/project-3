@@ -1,10 +1,20 @@
-import React, { Component } from 'react';
-import { getDiary } from '../../../../api';
+import React from 'react';
 import DiaryForm from '../../../../components/pages/Dashboard/Diary/DiaryForm';
 
-class Diary extends Component {
-  state = { diary: []};
+const Diary = props => (
+  <div>
+    <h1>Diary</h1>
+    <DiaryForm
+      meal={props.meal}
+      description={props.description}
+      calories={props.calories}
+      handleChange={props.handleChange}
+      handleDiarySubmit={props.handleDiarySubmit}
+    />
+  </div>
+);
 
+<<<<<<< HEAD
   componentDidMount() {
     this.loadDiary(this.props.userId);
   }
@@ -32,3 +42,6 @@ class Diary extends Component {
 }
 
 export default Diary;
+=======
+export default Diary;
+>>>>>>> 34f77f49e31a9fa6fb412b980bf13ea9b5cea542
