@@ -42,6 +42,10 @@ export function postUser(userId, data) {
   return axios.post(`/api/cashCal/user/${userId}`, data);
 }
 
+export function updateUser(userId, data) {
+  return axios.put(`/api/cashCal/user/${userId}`, data);
+}
+
 export async function getRewards() {
   const url = '/api/cashCal/rewards';
   try {
