@@ -82,7 +82,7 @@ const DiaryForm = props => (
               
                 <div className= "row" key={entry.id}>
 
-                <div className="col-sm">
+                <div className="col-sm" >
                   <p>{entry.meal}</p>
                 </div>
                 <div className="col-sm">
