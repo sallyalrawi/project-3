@@ -1,7 +1,6 @@
 import React, { Fragment } from 'react';
-import DiarySearchModal from './DiarySearchModal'
 import { Card, Button, Modal, Container } from "react-bootstrap"
-import ModalSearchbar from "./DiarySearchModal/ModalSearchbar/index"
+import ModalSearchbar from "./ModalSearchbar/index"
 
 
 const DiaryForm = props => (
@@ -75,6 +74,31 @@ const DiaryForm = props => (
       />
       <button type="submit">Submit</button>
     </form>
+
+    <div>{props.diary.map(entry => {
+            console.log(entry)
+            return (
+
+              
+                <div className= "row" key={entry.id}>
+
+                <div className="col-sm">
+                  <p>{entry.meal}</p>
+                </div>
+                <div className="col-sm">
+                  <p>{entry.description}</p>
+                </div>
+                <div className="col-sm">
+                  <p>{entry.calories}</p>
+                </div>
+                {/* ""{entry.description}""{entry.calories}Calories</p> */}
+                <Button  id={entry.id} variant="primary">delete this food</Button>
+                </div>
+              
+               )
+              })}
+              
+</div>
   </Fragment>
 );
 

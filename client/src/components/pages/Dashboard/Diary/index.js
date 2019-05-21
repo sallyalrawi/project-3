@@ -22,7 +22,10 @@ const Diary = props => (
       foodsList={props.foodsList}
       cardHeader={props.cardHeader}
       show={props.show}
+      diary={props.diary}
     />
+
+    
   </div>
 );
 

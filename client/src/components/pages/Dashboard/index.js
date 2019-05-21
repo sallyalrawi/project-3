@@ -31,11 +31,11 @@ const currentWeight = weights => {
 class Dashboard extends Component {
 
   constructor(props, context) {
-      super(props, context);
-  
+    super(props, context);
+
     this.handleShow = this.handleShow.bind(this);
     this.handleClose = this.handleClose.bind(this);
-  }  
+  }
   state = {
     userId: this.props.userId,
     user_name: '',
@@ -201,7 +201,7 @@ class Dashboard extends Component {
     const foodID = event.target.id;
 
     this.getFacts(foodID)
-    alert("food selected")
+    alert("food added")
     this.setState({ meal: '', description: '', calories: '' });
   }
 
@@ -225,85 +225,96 @@ class Dashboard extends Component {
       console.log(calories, unit, servingQty, servingUnit)
       // this.props.modalSubmit({ meal: foodClicked, description: description, calories: calories })
       // postDiary(this.props.userId, this.state);
-      this.setState({ calories:calories, description:description, meal:foodClicked}, () => {
-       this.modalSubmit(this.state)
+      this.setState({ calories: calories, description: description, meal: foodClicked }, () => {
+        this.modalSubmit(this.state)
       });
     } catch {
       console.error("error getting facts")
     }
   }
   modalSubmit = (data) => {
-
+    const { userId } = this.state;
+    let { points } = this.state;
     postDiary(this.props.userId, data);
-  
+    this.setState({ meal: '', description: '', calories: '' });
+    getDiary(userId).then(response => this.setState({ diary: response.data }));
+    // console.log(this.state.diary)
+    updateUser(userId, { points }).then(res =>
+      getUser(userId).then(response => {
+        const { points } = response.data[0];
+        this.setState({ points });
+
+      },
+      )
+    )
   }
-  
+
 
   render() {
-    return (
-      <div className="dashBodyContent">
-        <div className="row">
-          <Calories userCalories={this.state.userCalories} />
-          <div className="col-md-6">
-            <div className="row">
-              <div className="col">
-                <div className="card cardLook">
-                  <div className="card-body">
-                    <h1>current</h1>
+          return(
+      <div className = "dashBodyContent" >
+              <div className="row">
+                <Calories userCalories={this.state.userCalories} />
+                <div className="col-md-6">
+                  <div className="row">
+                    <div className="col">
+                      <div className="card cardLook">
+                        <div className="card-body">
+                          <h1>current</h1>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="row">
+                    <div className="col">
+                      <div className="card cardLook">
+                        <div className="card-body">
+                          <Weight
+                            handleWeightSubmit={this.handleWeightSubmit}
+                            handleChange={this.handleChange}
+                            weight={this.state.weight}
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="row">
+                    <div className="col">
+                      <div className="card cardLook">
+                        <div className="card-body">
+                          <Points points={this.state.points} />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="col-md-6">
+                  <div className="card cardLook">
+                    <div className="card-body">
+                      <Diary
+                        meal={this.state.meal}
+                        description={this.state.description}
+                        calories={this.state.calories}
+                        handleChange={this.handleChange}
+                        handleDiarySubmit={this.handleDiarySubmit}
+                        modalSubmit={this.modalSubmit}
+                        getFacts={this.getFacts}
+                        getFood={this.getFood}
+                        handleClose={this.handleClose}
+                        handleSearchChange={this.handleSearchChange}
+                        handleSearchClick={this.handleSearchClick}
+                        handleSearchSubmit={this.handleSearchSubmit}
+                        handleShow={this.handleShow}
+                        foodKeyword={this.state.foodKeyword}
+                        foodsList={this.state.foodsList}
+                        cardHeader={this.state.cardHeader}
+                        show={this.state.show}
+                        diary={this.state.diary}
+                      />
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <div className="row">
-              <div className="col">
-                <div className="card cardLook">
-                  <div className="card-body">
-                    <Weight
-                      handleWeightSubmit={this.handleWeightSubmit}
-                      handleChange={this.handleChange}
-                      weight={this.state.weight}
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="row">
-              <div className="col">
-                <div className="card cardLook">
-                  <div className="card-body">
-                    <Points points={this.state.points} />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="col-md-6">
-            <div className="card cardLook">
-              <div className="card-body">
-                <Diary
-                  meal={this.state.meal}
-                  description={this.state.description}
-                  calories={this.state.calories}
-                  handleChange={this.handleChange}
-                  handleDiarySubmit={this.handleDiarySubmit}
-                  modalSubmit={this.modalSubmit}
-                  getFacts={this.getFacts}
-                  getFood={this.getFood}
-                  handleClose={this.handleClose}
-                  handleSearchChange={this.handleSearchChange}
-                  handleSearchClick={this.handleSearchClick}
-                  handleSearchSubmit={this.handleSearchSubmit}
-                  handleShow={this.handleShow}
-                  foodKeyword={this.state.foodKeyword}
-                  foodsList={this.state.foodsList}
-                  cardHeader={this.state.cardHeader}
-                  show={this.state.show}
-
-                />
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
     );
   }
