@@ -20,7 +20,7 @@ class Rewards extends Component {
 
   componentDidMount() {
     this.loadRewards();
-    this.loadUser(this.props.currentUser.email);
+    this.loadUser(this.props.currentUser.uid);
   }
 
   async loadRewards() {
@@ -69,13 +69,13 @@ class Rewards extends Component {
       <div className="rewardbody">
         <div className="rewardBodyContent">
           <div className="rewardCardWrapper container-fluid">
-          <h1>
-            Name: {this.state.user_name} Points: {this.state.points}{' '}
-            {this.state.message}
-          </h1>
-          <div className="card-group">
-            {renderCards(this.state.rewards, this.handlePurchase)}
-          </div>
+            <h1>
+              Name: {this.state.user_name} Points: {this.state.points}{' '}
+              {this.state.message}
+            </h1>
+            <div className="card-group">
+              {renderCards(this.state.rewards, this.handlePurchase)}
+            </div>
           </div>
         </div>
       </div>
