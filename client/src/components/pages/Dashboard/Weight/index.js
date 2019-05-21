@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { getWeight, postWeight } from '../../../../api';
-
+import style from './style.css'
 class Weight extends Component {
   state = {  weight: '', previousWeights: [] ,createdAt:'', updatedAt:[]};
 
