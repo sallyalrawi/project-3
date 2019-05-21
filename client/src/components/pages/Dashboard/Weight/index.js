@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { getWeight, postWeight } from '../../../../api';
 
 class Weight extends Component {
-  state = { weight: '', previousWeights: [] };
+  state = {  weight: '', previousWeights: [] ,createdAt:'', updatedAt:[]};
 
   componentDidMount() {
     this.loadWeight(this.props.userId);
@@ -28,9 +28,12 @@ class Weight extends Component {
   };
 
   render() {
+    console.log(this.state.weight);
     return (
       <Fragment>
         <h1>Weight</h1>
+        <ul>{this.state.previousWeights.map(record => <li key={record.id}><p>Weight: {record.weight}</p><p>Date: {record.updatedAt}</p></li>)}
+        </ul>
         <form onSubmit={this.handleSubmit}>
           <label htmlFor="weight">Weight</label>
           <input
