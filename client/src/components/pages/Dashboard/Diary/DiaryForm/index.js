@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import { Card, Button, Modal, Container } from "react-bootstrap"
 import ModalSearchbar from "./ModalSearchbar/index"
-
+import "./style.css"
 
 const DiaryForm = props => (
   <Fragment>
