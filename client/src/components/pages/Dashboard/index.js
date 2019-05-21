@@ -28,6 +28,10 @@ const currentWeight = weights => {
   return weights[index - 1].weight;
 };
 
+const formatDate = date =>
+  `${date.split(' ')[1]} ${date.split(' ')[2]} ${date.split(' ')[3]}`;
+
+const formatTodaysDate = date => {};
 class Dashboard extends Component {
 
   constructor(props, context) {
@@ -96,6 +100,9 @@ class Dashboard extends Component {
     try {
       const response = await getDiary(userId);
       this.setState({ diary: response.data });
+      const { diary } = this.state;
+      let { userCalories } = this.state;
+      this.updateCalories(diary, userCalories);
     } catch (error) {
       throw error;
     }
@@ -133,17 +140,33 @@ class Dashboard extends Component {
   handleDiarySubmit = e => {
     e.preventDefault();
     const { userId } = this.state;
-    let { points } = this.state;
+    let { points, userCalories } = this.state;
     postDiary(userId, this.state);
     this.setState({ meal: '', description: '', calories: '' });
-    getDiary(userId).then(response => this.setState({ diary: response.data }));
     points += 5;
-    updateUser(userId, { points }).then(res =>
+    updateUser(userId, { points }).then(res => {
       getUser(userId).then(response => {
-        const { points } = response.data[0];
+        let { points } = response.data[0];
         this.setState({ points });
-      })
-    );
+      });
+      getDiary(userId).then(response => {
+        const diary = response.data;
+        const newEntry = diary.length - 1;
+        userCalories -= diary[newEntry].calories;
+        this.setState({ diary, userCalories });
+      });
+    });
+  };
+
+  updateCalories = (diary, userCalories) => {
+    diary.forEach(entry => {
+      const today = formatDate(new Date(Date.now()).toString());
+      const diaryDate = formatDate(new Date(entry.createdAt).toString());
+      if (diaryDate === today) {
+        userCalories -= entry.calories;
+      }
+    });
+    this.setState({ userCalories });
   };
 
   // ---------------------------------------------------------------------------//
