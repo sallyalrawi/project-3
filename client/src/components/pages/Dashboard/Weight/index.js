@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { getWeight, postWeight } from '../../../../api';
-import style from './style.css'
+import './style.css';
 class Weight extends Component {
   state = {  weight: '', previousWeights: [] ,createdAt:'', updatedAt:[]};
 
@@ -31,18 +31,19 @@ class Weight extends Component {
     console.log(this.state.weight);
     return (
       <Fragment>
-        <h1>Weight</h1>
-        <ul>{this.state.previousWeights.map(record => <li key={record.id}><p>Weight: {record.weight}</p><p>Date: {record.updatedAt}</p></li>)}
-        </ul>
-        <form onSubmit={this.handleSubmit}>
-          <label htmlFor="weight">Weight</label>
-          <input
+        <h1 className="head">Weight</h1>
+        <div className="row">
+          {this.state.previousWeights.map(record => <div className="row"><div className="col" key={record.id}>Weight: {record.weight}</div><div className="col">Date: {record.updatedAt}</div></div>)}
+        </div>
+        <form className = "form-inline" onSubmit={this.handleSubmit}>
+          <label className ="my-1 mr-2" htmlFor="weight">Inter Your Weight</label>
+          <input 
             type="text"
             name="weight"
             onChange={this.handleChange}
             value={this.state.weight}
           />
-          <button type="submit">Submit</button>
+          <button className="btn btn-primary" type="submit">Submit</button>
         </form>
       </Fragment>
     );
