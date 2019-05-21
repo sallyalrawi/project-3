@@ -49,7 +49,7 @@ class Dashboard extends Component {
     diary: [],
     meal: '',
     description: '',
-    calories: '',
+    calories: null,
     foodKeyword: "",
     cardHeader: "",
     foodsList: [],
@@ -206,10 +206,10 @@ class Dashboard extends Component {
       // const caloriesWUnit = calories + unit
 
       console.log(calories, unit, servingQty, servingUnit)
-      this.props.modalSubmit({ meal: foodClicked, description: description, calories: calories })
+      // this.props.modalSubmit({ meal: foodClicked, description: description, calories: calories })
       // postDiary(this.props.userId, this.state);
-      this.setState({ calories, description, meal:foodClicked}, () => {
-        console.log(this.state)
+      this.setState({ calories:calories, description:description, meal:foodClicked}, () => {
+       this.modalSubmit(this.state)
       });
     } catch {
       console.error("error getting facts")

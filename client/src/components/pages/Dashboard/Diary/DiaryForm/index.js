@@ -1,29 +1,56 @@
 import React, { Fragment } from 'react';
 import DiarySearchModal from './DiarySearchModal'
-
+import { Card, Button, Modal, Container } from "react-bootstrap"
+import ModalSearchbar from "./DiarySearchModal/ModalSearchbar/index"
 
 
 const DiaryForm = props => (
   <Fragment>
-    <DiarySearchModal
-      meal={props.meal}
-      description={props.description}
-      calories={props.calories}
-      handleChange={props.handleChange}
-      handleDiarySubmit={props.handleDiarySubmit}
-      modalSubmit={props.modalSubmit}
-      getFacts={props.getFacts}
-      getFood={props.getFood}
-      handleClose={props.handleClose}
-      handleSearchChange={props.handleSearchChange}
-      handleSearchClick={props.handleSearchClick}
-      handleSearchSubmit={props.handleSearchSubmit}
-      handleShow={props.handleShow}
-      foodKeyword={props.foodKeyword}
-      foodsList={props.foodsList}
-      cardHeader={props.cardHeader}
-      show={props.show}
-    />
+     <Button variant="primary" onClick={props.handleShow}>
+        Search for a food
+        </Button>
+      <h3> or manually enter the food information below</h3>
+      <Modal show={props.show} onHide={props.handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title >Food Search</Modal.Title>
+        </Modal.Header>
+
+        <Modal.Body style={{ 'maxHeight': 'calc(100vh - 210px)', 'overflowY': 'auto' }}>
+          <Container>
+            <ModalSearchbar
+              handleChange={props.handleSearchChange}
+              handleSubmit={props.handleSearchSubmit}
+              // handleClick={this.handleClick}
+              value={props.foodKeyword}
+            />
+          </Container>
+          <Card.Title><b>Searched:{props.cardHeader}</b></Card.Title>
+
+          {props.foodsList.map(foodItem => {
+            // console.log(foodItem)
+            return (
+
+              <Card key={foodItem.id} style={{ width: '18rem' }}>
+
+
+                <Card.Text  >{foodItem.name}</Card.Text>
+                <Button onClick={props.handleSearchClick} id={foodItem.id} variant="primary">Select this food</Button>
+
+              </Card>
+
+            )
+          })}
+
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={props.handleClose}>
+            Close
+            </Button>
+
+        </Modal.Footer>
+      </Modal>
+
+    
     <form onSubmit={props.handleDiarySubmit}>
       <label htmlFor="meal">Meal</label>
       <input
