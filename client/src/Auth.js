@@ -15,4 +15,8 @@ export const AuthProvider = ({ children }) => {
       {children}
     </AuthContext.Provider>
   )
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 37beebfdd4adaee3a10ab45355c558cf0424b083
