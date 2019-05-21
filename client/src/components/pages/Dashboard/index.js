@@ -8,6 +8,7 @@ import Points from '../../../components/pages/Dashboard/Points';
 // import Footer from '../../../components/features/Footer';
 import {
   getUser,
+  updateUser,
   getWeight,
   postWeight,
   getDiary,
@@ -110,6 +111,7 @@ class Dashboard extends Component {
   handleWeightSubmit = e => {
     e.preventDefault();
     const { userId, weight } = this.state;
+    let { points } = this.state;
     postWeight(userId, { weight });
     this.setState({ weight: '' });
     this.loadWeight(userId);
@@ -119,14 +121,29 @@ class Dashboard extends Component {
         previousWeights: response.data
       })
     );
+    points += 25;
+    updateUser(userId, { points }).then(res =>
+      getUser(userId).then(response => {
+        const { points } = response.data[0];
+        this.setState({ points });
+      })
+    );
   };
 
   handleDiarySubmit = e => {
     e.preventDefault();
     const { userId } = this.state;
+    let { points } = this.state;
     postDiary(userId, this.state);
     this.setState({ meal: '', description: '', calories: '' });
     getDiary(userId).then(response => this.setState({ diary: response.data }));
+    points += 5;
+    updateUser(userId, { points }).then(res =>
+      getUser(userId).then(response => {
+        const { points } = response.data[0];
+        this.setState({ points });
+      })
+    );
   };
 
   // ---------------------------------------------------------------------------//
@@ -264,6 +281,9 @@ class Dashboard extends Component {
             <div className="card cardLook">
               <div className="card-body">
                 <Diary
+                  meal={this.state.meal}
+                  description={this.state.description}
+                  calories={this.state.calories}
                   handleChange={this.handleChange}
                   handleDiarySubmit={this.handleDiarySubmit}
                   modalSubmit={this.modalSubmit}
