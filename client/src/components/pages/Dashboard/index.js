@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import Weight from '../../../components/pages/Dashboard/Weight';
 import Diary from '../../../components/pages/Dashboard/Diary';
+import Points from '../../../components/pages/Dashboard/Points';
 import Navigation from '../../../components/features/Navigation';
-import Footer from '../../../components/features/Footer';
+// import Footer from '../../../components/features/Footer';
 import './style.css';
 
 class Dashboard extends Component {
@@ -10,16 +11,49 @@ class Dashboard extends Component {
 
   render() {
     return (
-      <div className="dashbody">
-        <div className="dashBodyContent">
-          <Navigation />
-          <div className="dashInnerContainer container-fluid">
-            <Weight userId={this.props.userId} />
-            <Diary userId={this.props.userId} />
-          </div>
+          <div className="dashBodyContent">
+            <div className="row">
+
+              <div className="col-md-6">
+              <div className="row">
+                  <div className="col">
+                  <div className="card cardLook">
+                      <div className="card-body">
+                    <h1>current</h1>
+                    </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="row">
+                  <div className="col">
+                      <div className="card cardLook">
+                      <div className="card-body">
+                        <Weight userId={this.props.userId} />
+                        </div>
+                        </div>
+                  </div>
+                </div>
+                <div className="row">
+                  <div className="col">
+                  <div className="card cardLook">
+                      <div className="card-body">
+                        <Points userId={this.props.userId} />
+                        </div>
+                        </div>
+                  </div>
+                </div>
+
+            </div>
+            <div className="col-md-6">
+            <div className="card cardLook">
+                      <div className="card-body">
+                  <Diary userId={this.props.userId} /> 
+                  </div>
+                  </div>
+            </div>
+      
+            </div>
         </div>
-        <Footer />
-      </div>
     );
   }
 }

@@ -1,7 +1,7 @@
 /* eslint-disable import/no-duplicates */
 import React, { Component, Fragment } from 'react'
 // import { postDiary } from '../../../../../api';
-import ModalSearchbar from '../ModalSearchbar/index'
+import ModalSearchbar from './ModalSearchbar'
 import axios from "axios";
 import { Card, Button, Modal, Container } from "react-bootstrap"
 

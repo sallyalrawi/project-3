@@ -13,7 +13,7 @@ class Diary extends Component {
     try {
       const response = await getDiary(userId);
       this.setState({ diary: response.data });
-      console.log(this.state.diary);
+      console.log(this.state.diary, "hello");
     } catch (error) {
       throw error;
     }
@@ -22,7 +22,9 @@ class Diary extends Component {
     return (
       <div>
       <h1>Diary</h1>
+      {this.state.diary.map(entry => <div><p>{entry.meal}</p><p>{entry.description}</p><p>{entry.calories}</p></div>)}
       <DiaryForm userId ={this.props.userId} />
+      <Diary/>
       </div>
       
       )

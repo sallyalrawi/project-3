@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { postDiary } from '../../../../../api';
-import DiarySearchModal from '../DiarySearchModal/';
+import DiarySearchModal from './DiarySearchModal'
 
 class DiaryForm extends Component {
   state = { meal: '', description: '', calories: '' };
