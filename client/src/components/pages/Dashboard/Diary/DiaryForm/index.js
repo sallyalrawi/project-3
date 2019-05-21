@@ -1,13 +1,29 @@
-<<<<<<< HEAD
-import React, { Component, Fragment } from 'react';
-import { postDiary } from '../../../../../api';
-import DiarySearchModal from './DiarySearchModal'
-=======
 import React, { Fragment } from 'react';
->>>>>>> 34f77f49e31a9fa6fb412b980bf13ea9b5cea542
+import DiarySearchModal from './DiarySearchModal'
+
+
 
 const DiaryForm = props => (
   <Fragment>
+    <DiarySearchModal
+      meal={props.meal}
+      description={props.description}
+      calories={props.calories}
+      handleChange={props.handleChange}
+      handleDiarySubmit={props.handleDiarySubmit}
+      modalSubmit={props.modalSubmit}
+      getFacts={props.getFacts}
+      getFood={props.getFood}
+      handleClose={props.handleClose}
+      handleSearchChange={props.handleSearchChange}
+      handleSearchClick={props.handleSearchClick}
+      handleSearchSubmit={props.handleSearchSubmit}
+      handleShow={props.handleShow}
+      foodKeyword={props.foodKeyword}
+      foodsList={props.foodsList}
+      cardHeader={props.cardHeader}
+      show={props.show}
+    />
     <form onSubmit={props.handleDiarySubmit}>
       <label htmlFor="meal">Meal</label>
       <input
@@ -35,58 +51,4 @@ const DiaryForm = props => (
   </Fragment>
 );
 
-<<<<<<< HEAD
-  handleChange = e => this.setState({ [e.target.name]: e.target.value });
-
-  handleSubmit = e => {
-    e.preventDefault();
-    postDiary(this.props.userId, this.state);
-    this.setState({ meal: '', description: '', calories: '' });
-  
-  }
-
-  modalSubmit = (data) => {
-   
-    postDiary(this.props.userId, data);
-      
-  }
-
-  render() {
-    return (
-      <Fragment>
-        <DiarySearchModal  
-        modalSubmit={this.modalSubmit}
-        />
-        <form onSubmit={this.handleSubmit}>
-          <label htmlFor="meal">Meal</label>
-          <input
-            onChange={this.handleChange}
-            type="text"
-            name="meal"
-            value={this.state.meal}
-          />
-          <label htmlFor="description">Description</label>
-          <input
-            onChange={this.handleChange}
-            type="text"
-            name="description"
-            value={this.state.description}
-          />
-          <label htmlFor="calories">Calories</label>
-          <input
-            onChange={this.handleChange}
-            type="text"
-            name="calories"
-            value={this.state.calories}
-          />
-          <button type="submit">Submit</button>
-        </form>
-      </Fragment>
-    );
-  }
-}
-
 export default DiaryForm;
-=======
-export default DiaryForm;
->>>>>>> 34f77f49e31a9fa6fb412b980bf13ea9b5cea542

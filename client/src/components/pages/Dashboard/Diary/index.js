@@ -10,38 +10,20 @@ const Diary = props => (
       calories={props.calories}
       handleChange={props.handleChange}
       handleDiarySubmit={props.handleDiarySubmit}
+      modalSubmit={props.modalSubmit}
+      getFacts={props.getFacts}
+      getFood={props.getFood}
+      handleClose={props.handleClose}
+      handleSearchChange={props.handleSearchChange}
+      handleSearchClick={props.handleSearchClick}
+      handleSearchSubmit={props.handleSearchSubmit}
+      handleShow={props.handleShow}
+      foodKeyword={props.foodKeyword}
+      foodsList={props.foodsList}
+      cardHeader={props.cardHeader}
+      show={props.show}
     />
   </div>
 );
 
-<<<<<<< HEAD
-  componentDidMount() {
-    this.loadDiary(this.props.userId);
-  }
-
-  async loadDiary(userId) {
-    try {
-      const response = await getDiary(userId);
-      this.setState({ diary: response.data });
-      console.log(this.state.diary, "hello");
-    } catch (error) {
-      throw error;
-    }
-  }
-  render() {
-    return (
-      <div>
-      <h1>Diary</h1>
-      {this.state.diary.map(entry => <div><p>{entry.meal}</p><p>{entry.description}</p><p>{entry.calories}</p></div>)}
-      <DiaryForm userId ={this.props.userId} />
-      <Diary/>
-      </div>
-      
-      )
-  }
-}
-
 export default Diary;
-=======
-export default Diary;
->>>>>>> 34f77f49e31a9fa6fb412b980bf13ea9b5cea542
