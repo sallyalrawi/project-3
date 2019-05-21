@@ -31,7 +31,6 @@ class SignUp extends Component {
         .createUserWithEmailAndPassword(email.value, password.value)
         .then(response => {
           const userId = response.user.uid;
-          console.log(response);
 
           const {
             name,
