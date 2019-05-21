@@ -1,45 +1,13 @@
-import React, { Component } from 'react';
-import { getUser } from '../../../../api';
+import React from 'react';
 import './style.css';
+import Button from 'react-bootstrap/Button';
 
 
 
-class Points extends Component {
-    state = {
-      rewards: [],
-      user_name: '',
-      points: 0,
-      message: ''
-    };
-
-    componentDidMount() {
-        this.loadUser(this.props.userId);
-      }
-    
-
-      loadUser = async userId => {
-        try {
-          const response = await getUser(userId);
-          const { user_name, points } = response.data[0];
-          this.setState({
-            user_name,
-            points
-          });
-        } catch (error) {
-          throw error;
-        }
-      };
-    
-
-      render() {
-        return (
-              <div className="rewardCardWrapper container-fluid">
-              <h1>
-                Points Balance: {this.state.points}{' '}
-              </h1>
+const Points = props => (
+              <div className="dashPoints container-fluid">
+              <h1 className="pointsText">Rewards Balance: <strong className="pointsTotal">{props.points}</strong></h1>
               </div>
         );
-      }
-    }
     
-    export default Points;
+ export default Points;

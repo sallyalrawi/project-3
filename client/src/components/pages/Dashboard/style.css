@@ -2,23 +2,48 @@
     min-height:100vh;
     height:100%;
     margin-bottom:-44px;
-    padding-top:77px;
-    background:#fff;
-    padding-bottom:77px;
+    padding-top:78px;
+    background:#f2f2f2;
+    padding-bottom:55px;
    }
 
 
    .box{
-       border-bottom:1px solid #ddd;
+       border-bottom:1px solid #ababab;
    }
 
   
 
    .cardLook{
-       border-radius: 0;
-       background:#f9f9f9;
-       border:0;
+       /* border-radius: 0; */
+       background:#fff;
+       /* border:0; */
+       border-color:#ddd;
        /* border-bottom:1px solid #ddd; */
        padding: 20px 10px;
        margin-bottom:15px;
    }
+/* 
+   .dash-container{
+      margin-right:0;
+   } */
+
+
+   .leftCol{
+       padding-right:0;
+   }
+
+   @media (min-width:768px) {
+
+	.cardLook{
+        margin-bottom:15px;
+    }
+    
+}
+
+@media (max-width:768px) {
+    .leftCol{
+        padding-right:15px;
+    }
+}
+

@@ -29,3 +29,11 @@
 }
 
 
+.showFooter{
+display:block;
+}
+
+.hideFooter{
+display:none;
+}
+
