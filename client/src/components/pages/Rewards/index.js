@@ -80,7 +80,7 @@ class Rewards extends Component {
           <h5>{this.state.message}</h5>
           </div>
           <div className="rewardCardWrapper container-fluid">
-            <div className="card-group">
+            <div className="row">
               {renderCards(this.state.rewards, this.handlePurchase)}
             </div>
           </div>

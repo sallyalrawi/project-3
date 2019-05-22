@@ -1,10 +1,12 @@
 import React from 'react';
+import './style.css';
 
 const Card = ({ reward, handlePurchase }) => (
+  <div className="col-lg-3 col-sm-6 mb-3">
   <div className="card">
-    <img src={reward.image} className="card-img-top" alt={reward.title} />
+    <img src={reward.image} className="card-img-top cardimg" alt={reward.title} />
     <div className="card-body">
-      <h5 className="card-title">{reward.title}</h5>
+      <h5 className="card-title cardtitle">{reward.title}</h5>
       <p className="card-text">{reward.description}</p>
       <p className="card-text">{reward.points} Points</p>
       <a
@@ -23,6 +25,7 @@ const Card = ({ reward, handlePurchase }) => (
         Buy
       </button>
     </div>
+  </div>
   </div>
 );
 
