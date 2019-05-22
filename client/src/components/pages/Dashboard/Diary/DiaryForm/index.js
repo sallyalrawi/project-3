@@ -3,7 +3,7 @@ import { Card, Button, Modal, Container } from 'react-bootstrap';
 import ModalSearchbar from './ModalSearchbar';
 import { formatDate } from '../../../../../helpers';
 import './style.css';
-import { Form, Row } from 'react-bootstrap';
+import { Form } from 'react-bootstrap';
 
 const renderDiary = diary =>
   diary.map(entry => {
@@ -81,35 +81,9 @@ const DiaryForm = props => (
       </Modal.Footer>
     </Modal>
 
-    {/* <form className="mealForm" onSubmit={props.handleDiarySubmit}>
-      <label htmlFor="meal">Meal</label>
-      <input
-        onChange={props.handleChange}
-        type="text"
-        name="meal"
-        value={props.meal}
-      />
-      <label htmlFor="description">Description</label>
-      <input
-        onChange={props.handleChange}
-        type="text"
-        name="description"
-        value={props.description}
-      />
-      <label htmlFor="calories">Calories</label>
-      <input
-        onChange={props.handleChange}
-        type="text"
-        name="calories"
-        value={props.calories}
-      />
-      <button type="submit">Submit</button>
-    </form> */}
-
-
-<div className="formWrapper">
-<div className="formContain">
-<Form className="mealForm" onSubmit={props.handleDiarySubmit}>
+    <div className="formWrapper">
+      <div className="formContain">
+        <Form className="mealForm" onSubmit={props.handleDiarySubmit}>
           <Form.Group className="logRow" controlId="meal">
             <Form.Label className="loglabel">Meal</Form.Label>
             <Form.Control
@@ -124,12 +98,13 @@ const DiaryForm = props => (
 
           <Form.Group className="logRow" controlId="description">
             <Form.Label className="loglabel">Description</Form.Label>
-            <Form.Control 
-            name="description" 
-            type="description"
-            onChange={props.handleChange} 
-            value={props.description}
-            placeholder="Description" />
+            <Form.Control
+              name="description"
+              type="description"
+              onChange={props.handleChange}
+              value={props.description}
+              placeholder="Description"
+            />
           </Form.Group>
 
           <Form.Group className="logRow" controlId="calories">
@@ -142,15 +117,17 @@ const DiaryForm = props => (
               placeholder="Calories"
             />
           </Form.Group>
-  
-          <Button variant="danger" className="mealSubmit btn btn-block" type="submit">
+
+          <Button
+            variant="danger"
+            className="mealSubmit btn btn-block"
+            type="submit"
+          >
             Submit
           </Button>
         </Form>
-        </div>
-        </div>
-
-
+      </div>
+    </div>
 
     <div className="row diaryRowHeader">
       <div className="col-md-3 headerMeal">Meal</div>
@@ -158,29 +135,7 @@ const DiaryForm = props => (
       <div className="col headerCal">Calories</div>
     </div>
 
-    <div>
-      {renderDiary(props.diary)}
-      {/* {props.diary.map(entry => {
-        return (
-          <div className="row diaryBody" key={entry.id}>
-            <div className="col-sm meal">
-              <p>{entry.meal}</p>
-            </div>
-            <div className="col-sm descr">
-              <p>{entry.description}</p>
-            </div>
-            <div className="col-sm cal">
-              <p>{entry.calories}</p>
-            </div>
-            <div>
-              <Button id={entry.id} variant="primary">
-                delete this food
-              </Button>
-            </div>
-          </div>
-        );
-      })} */}
-    </div>
+    <div>{renderDiary(props.diary)}</div>
   </Fragment>
 );
 

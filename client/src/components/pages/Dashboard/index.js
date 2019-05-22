@@ -230,8 +230,6 @@ class Dashboard extends Component {
       const servingQty = caloriesArr[0].measures[0].qty;
       const description = servingQty + servingUnit;
 
-      // this.props.modalSubmit({ meal: foodClicked, description: description, calories: calories })
-      // postDiary(this.props.userId, this.state);
       this.setState(
         { calories: calories, description: description, meal: foodClicked },
         () => {

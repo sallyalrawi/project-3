@@ -1,7 +1,7 @@
 {
   "development": {
     "username": "root",
-    "password": "1213",
+    "password": "d0ntsayThat!",
     "database": "cashcal_db",
     "host": "localhost",
     "dialect": "mysql"

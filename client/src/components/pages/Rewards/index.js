@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import './style.css';
 import Card from './Card';
-import Navigation from '../../../components/features/Navigation';
-import Footer from '../../../components/features/Footer';
 import { getRewards, purchaseReward, getUser } from '../../../api';
 
 const renderCards = (rewards, handlePurchase) =>
@@ -20,6 +18,10 @@ class Rewards extends Component {
 
   componentDidMount() {
     this.loadRewards();
+    this.loadUser(this.props.currentUser.uid);
+  }
+
+  componentDidUpdate() {
     this.loadUser(this.props.currentUser.uid);
   }
 
@@ -69,15 +71,16 @@ class Rewards extends Component {
       <div className="rewardbody">
         <div className="rewardBodyContent">
           <div className="title">
-          <h1>
-            {this.state.user_name}'s CashCal Rewards Balance: <strong className="pointsTotal">{this.state.points}</strong>{' '}
-            {this.state.message}
-          </h1>
+            <h1>
+              {this.state.user_name}'s CashCal Rewards Balance:{' '}
+              <strong className="pointsTotal">{this.state.points}</strong>{' '}
+              {this.state.message}
+            </h1>
           </div>
           <div className="rewardCardWrapper container-fluid">
-          <div className="card-group">
-            {renderCards(this.state.rewards, this.handlePurchase)}
-          </div>
+            <div className="card-group">
+              {renderCards(this.state.rewards, this.handlePurchase)}
+            </div>
           </div>
         </div>
       </div>
@@ -85,6 +88,3 @@ class Rewards extends Component {
   }
 }
 export default Rewards;
-
-
-
