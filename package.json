@@ -29,14 +29,10 @@
     "eslint": "^5.16.0",
     "express": "^4.16.3",
     "firebase": "^6.0.2",
-<<<<<<< HEAD
-    "if-env": "^1.0.4"
-=======
     "if-env": "^1.0.4",
     "mysql2": "^1.6.5",
     "sequelize": "^5.8.5",
     "babel": "^6.23.0",
     "babel-preset-react-app": "^9.0.0"
->>>>>>> 37beebfdd4adaee3a10ab45355c558cf0424b083
   }
 }
