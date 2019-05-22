@@ -59,7 +59,7 @@ class Dashboard extends Component {
   };
 
   componentDidMount() {
-    this.loadUser(this.state.userId);
+    this.loadUser(this.props.userId);
     this.loadWeight(this.state.userId);
     this.loadDiary(this.state.userId);
   }
@@ -119,12 +119,13 @@ class Dashboard extends Component {
     postWeight(userId, { weight });
     this.setState({ weight: '' });
     this.loadWeight(userId);
-    getWeight(userId).then(response =>
+    getWeight(userId).then(response => {
       this.setState({
         currentWeight: currentWeight(response.data),
         previousWeights: response.data
-      })
-    );
+      });
+      this.calculateCalories(this.state);
+    });
     points += 25;
     updateUser(userId, { points }).then(res =>
       getUser(userId).then(response => {
