@@ -1,12 +1,25 @@
 .searchbutton{
     background:#9b2727;
     border-color:#9b2727;
+    font-size:1em;
+    padding-top:7px;
+    padding-bottom:7px;
+}
+
+.mealSubmit{
+    background:#9b2727;
+    border-color:#9b2727;
+}
+
+.deletefood{
+    background:#9b2727;
+    border-color:#9b2727;
 }
 
 .directionstext{
-    font-size:1.3em;
+    font-size:1.2em;
     text-align:center;
-    margin-bottom:20px;
+    margin-bottom:15px;
 }
 
 
@@ -17,7 +30,7 @@
 }
 
 .mealForm{
-    margin-bottom:40px;
+    margin:0px auto;
 }
 
 .diaryRowHeader{
@@ -35,6 +48,29 @@ font-size:1.0em;
     margin-right:0px;
 }
 
+.logRow{
+    margin-bottom:12px;
+}
+
+.loglabel{
+    margin-bottom:3px;
+    font-weight:600;
+    color:#000;
+}
+
+
+
+.formContain{
+background:#f7f7f7;
+padding:40px;
+padding-top:25px;
+padding-bottom:30px;
+border-radius:5px;
+margin-bottom:25px;
+/* border:1px solid#ddd; */
+box-shadow:0px 0px 3px 2px #eaeaea;
+}
+
 
 
 @media (min-width:1200px) {
@@ -48,6 +84,7 @@ font-size:1.0em;
     }	
     
 }
+
 
 
 @media (min-width:1450px) {

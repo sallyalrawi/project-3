@@ -1,14 +1,14 @@
 {
   "development": {
     "username": "root",
-    "password": "d0ntsayThat!",
+    "password": "1213",
     "database": "cashcal_db",
     "host": "localhost",
     "dialect": "mysql"
   },
   "test": {
     "username": "root",
-    "password": "d0ntsayThat!",
+    "password": "1213",
     "database": "cashcal_db",
     "host": "localhost",
     "dialect": "mysql",
