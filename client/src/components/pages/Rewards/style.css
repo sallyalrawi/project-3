@@ -17,9 +17,17 @@
     padding:20px;
     text-align:center;
     color:#333;
-    text-shadow: 0px 1px 2px #999;
+    text-shadow: 0px 2px 2px #ddd;
     border-bottom:1px solid #ddd;
+}
+
+.message{
+    background:#9b2727;
+    color:#fff;
     margin-bottom:20px;
+    text-align:center;
+    font-size:1.3em;
+    font-style: italic;
 }
 
 .pointsTotal{
@@ -28,4 +36,8 @@
 
 h1{
     font-size:2.5em;
+}
+
+h5{
+    padding:10px;
 }

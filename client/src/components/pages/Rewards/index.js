@@ -74,8 +74,10 @@ class Rewards extends Component {
             <h1>
               {this.state.user_name}'s CashCal Rewards Balance:{' '}
               <strong className="pointsTotal">{this.state.points}</strong>{' '}
-              {this.state.message}
             </h1>
+          </div>
+          <div className="message">
+          <h5>{this.state.message}</h5>
           </div>
           <div className="rewardCardWrapper container-fluid">
             <div className="card-group">
