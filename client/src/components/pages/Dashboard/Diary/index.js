@@ -24,8 +24,6 @@ const Diary = props => (
       show={props.show}
       diary={props.diary}
     />
-
-    
   </div>
 );
 

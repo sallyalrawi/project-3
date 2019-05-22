@@ -1,7 +1,34 @@
 import React, { Fragment } from 'react';
 import { Card, Button, Modal, Container } from 'react-bootstrap';
 import ModalSearchbar from './ModalSearchbar';
+import { formatDate } from '../../../../../helpers';
 import './style.css';
+
+const renderDiary = diary =>
+  diary.map(entry => {
+    const today = formatDate(new Date(Date.now()).toString());
+    const diaryDate = formatDate(new Date(entry.createdAt).toString());
+    if (diaryDate === today) {
+      return (
+        <div className="row diaryBody" key={entry.id}>
+          <div className="col-sm meal">
+            <p>{entry.meal}</p>
+          </div>
+          <div className="col-sm descr">
+            <p>{entry.description}</p>
+          </div>
+          <div className="col-sm cal">
+            <p>{entry.calories}</p>
+          </div>
+          <div>
+            <Button id={entry.id} variant="primary">
+              delete this food
+            </Button>
+          </div>
+        </div>
+      );
+    }
+  });
 
 const DiaryForm = props => (
   <Fragment>
@@ -24,7 +51,6 @@ const DiaryForm = props => (
           <ModalSearchbar
             handleChange={props.handleSearchChange}
             handleSubmit={props.handleSearchSubmit}
-            // handleClick={this.handleClick}
             value={props.foodKeyword}
           />
         </Container>
@@ -32,21 +58,18 @@ const DiaryForm = props => (
           <b>Searched:{props.cardHeader}</b>
         </Card.Title>
 
-        {props.foodsList.map(foodItem => {
-          // console.log(foodItem)
-          return (
-            <Card key={foodItem.id} style={{ width: '18rem' }}>
-              <Card.Text>{foodItem.name}</Card.Text>
-              <Button
-                onClick={props.handleSearchClick}
-                id={foodItem.id}
-                variant="primary"
-              >
-                Select this food
-              </Button>
-            </Card>
-          );
-        })}
+        {props.foodsList.map(foodItem => (
+          <Card key={foodItem.id} style={{ width: '18rem' }}>
+            <Card.Text>{foodItem.name}</Card.Text>
+            <Button
+              onClick={props.handleSearchClick}
+              id={foodItem.id}
+              variant="primary"
+            >
+              Select this food
+            </Button>
+          </Card>
+        ))}
       </Modal.Body>
       <Modal.Footer>
         <Button variant="secondary" onClick={props.handleClose}>
@@ -87,10 +110,8 @@ const DiaryForm = props => (
     </div>
 
     <div>
-      {props.diary.map(entry => {
-        {
-          /* console.log(entry) */
-        }
+      {renderDiary(props.diary)}
+      {/* {props.diary.map(entry => {
         return (
           <div className="row diaryBody" key={entry.id}>
             <div className="col-sm meal">
@@ -102,7 +123,6 @@ const DiaryForm = props => (
             <div className="col-sm cal">
               <p>{entry.calories}</p>
             </div>
-            {/* ""{entry.description}""{entry.calories}Calories</p> */}
             <div>
               <Button id={entry.id} variant="primary">
                 delete this food
@@ -110,7 +130,7 @@ const DiaryForm = props => (
             </div>
           </div>
         );
-      })}
+      })} */}
     </div>
   </Fragment>
 );

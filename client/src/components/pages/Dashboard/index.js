@@ -13,21 +13,13 @@ import {
   getDiary,
   postDiary
 } from '../../../api';
+import {
+  caloriesMale,
+  caloriesFemale,
+  currentWeight,
+  formatDate
+} from '../../../helpers';
 import './style.css';
-
-const caloriesMale = user =>
-  66 + 6.2 * user.currentWeight + 12.7 * user.height - 6.76 * user.age;
-
-const caloriesFemale = user =>
-  655.1 + 4.35 * user.currentWeight + 4.7 * user.height - 4.7 * user.age;
-
-const currentWeight = weights => {
-  const index = weights.length;
-  return weights[index - 1].weight;
-};
-
-const formatDate = date =>
-  `${date.split(' ')[1]} ${date.split(' ')[2]} ${date.split(' ')[3]}`;
 
 class Dashboard extends Component {
   constructor(props, context) {
@@ -100,6 +92,14 @@ class Dashboard extends Component {
       const { diary } = this.state;
       let { userCalories } = this.state;
       this.updateCalories(diary, userCalories);
+      diary.forEach(entry => {
+        const today = formatDate(new Date(Date.now()).toString());
+        const diaryDate = formatDate(new Date(entry.createdAt).toString());
+        if (diaryDate === today) {
+          userCalories -= entry.calories;
+        }
+      });
+      this.setState({ userCalories });
     } catch (error) {
       throw error;
     }
