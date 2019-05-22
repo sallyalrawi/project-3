@@ -28,6 +28,7 @@ const renderDiary = diary =>
         </div>
       );
     }
+    return false;
   });
 
 const DiaryForm = props => (

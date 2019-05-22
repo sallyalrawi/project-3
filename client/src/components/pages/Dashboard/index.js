@@ -52,8 +52,8 @@ class Dashboard extends Component {
 
   componentDidMount() {
     this.loadUser(this.props.userId);
-    this.loadWeight(this.state.userId);
-    this.loadDiary(this.state.userId);
+    this.loadWeight(this.props.userId);
+    this.loadDiary(this.props.userId);
   }
 
   loadUser = async userId => {
@@ -226,7 +226,6 @@ class Dashboard extends Component {
         return el.name === 'Energy' && el.unit === 'kcal';
       });
       const calories = caloriesArr[0].value;
-      const unit = caloriesArr[0].unit;
       const servingUnit = caloriesArr[0].measures[0].label;
       const servingQty = caloriesArr[0].measures[0].qty;
       const description = servingQty + servingUnit;
@@ -273,7 +272,6 @@ class Dashboard extends Component {
               <div className="col ">
                 <div className="card cardLook">
                   <div className="card-body">
-                    <h1 />
                     <Calories userCalories={this.state.userCalories} />
                   </div>
                 </div>
