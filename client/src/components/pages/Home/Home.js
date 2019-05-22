@@ -2,8 +2,8 @@ import React, { Fragment } from 'react';
 import SignUp from '../../../components/pages/Home/SignUp';
 import Login from '../../../components/pages/Home/Login';
 import './style.css'
-// import Navigation from '../../../features/Navigation'
-import { Tabs, Tab, Nav, Row, Col, } from 'react-bootstrap';
+import Footer from '../../../components/features/Footer'
+import { Tabs, Tab } from 'react-bootstrap';
 
 const Home = () => (
   <div className="homeBodyContent">
@@ -33,6 +33,7 @@ const Home = () => (
         </div>
 
       </div>
+      <Footer />
     </Fragment>
   </div>
 );

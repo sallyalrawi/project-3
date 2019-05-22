@@ -3,8 +3,8 @@ import Calories from '../../../components/pages/Dashboard/Calories';
 import Weight from '../../../components/pages/Dashboard/Weight';
 import Diary from '../../../components/pages/Dashboard/Diary';
 import Points from '../../../components/pages/Dashboard/Points';
-// import Navigation from '../../../components/features/Navigation';
-// import Footer from '../../../components/features/Footer';
+import axios from 'axios';
+
 import {
   getUser,
   updateUser,
@@ -29,8 +29,16 @@ const currentWeight = weights => {
 const formatDate = date =>
   `${date.split(' ')[1]} ${date.split(' ')[2]} ${date.split(' ')[3]}`;
 
-const formatTodaysDate = date => {};
+const formatTodaysDate = date => { };
 class Dashboard extends Component {
+
+  constructor(props, context) {
+    super(props, context);
+
+    this.handleShow = this.handleShow.bind(this);
+    this.handleClose = this.handleClose.bind(this);
+  }
+
   state = {
     userId: this.props.userId,
     user_name: '',
@@ -45,7 +53,11 @@ class Dashboard extends Component {
     diary: [],
     meal: '',
     description: '',
-    calories: ''
+    calories: null,
+    foodKeyword: "",
+    cardHeader: "",
+    foodsList: [],
+    show: false,
   };
 
   componentDidMount() {
@@ -156,29 +168,135 @@ class Dashboard extends Component {
     this.setState({ userCalories });
   };
 
+
+  getFood = async (foodKeyword) => {
+
+    try {
+      const response = await axios.get(`https://api.nal.usda.gov/ndb/search/?format=json&q=${foodKeyword}&sort=n&max=25&offset=0&api_key=6fDIrXqchfLy0iPmxZD8eSYlduVoCjOxkGhaUsoH`);
+
+      const foodsListData = response.data.list.item;
+      // console.log(response)
+      // NOTE here we have an array of objects 
+      const foodsArray = foodsListData.map(function (data) {
+        // console.log(data);
+        return { name: data.name, serving: data.unit, id: data.ndbno }
+
+      });
+
+      // console.log(foodsListData);
+      this.setState({ foodsList: foodsArray })
+
+    } catch (error) {
+      // alert('Please Enter A Valid Food Name')
+    }
+  }
+
+  handleClose() {
+    this.setState({ show: false });
+  }
+
+  handleShow() {
+    this.setState({ show: true });
+  }
+
+  handleSearchSubmit = (event) => {
+    event.preventDefault();
+    const { foodKeyword } = this.state;
+    if (foodKeyword === '') {
+      // return alert('Please Enter A Valid Food Name');
+      console.log("error invalid food name");
+    }
+    this.getFood(foodKeyword);
+
+    this.setState({ cardHeader: foodKeyword, foodKeyword: "" });
+  }
+
+
+  handleSearchChange = (event) => {
+    const { name, value } = event.target;
+    // console.log(name, value)
+    this.setState({ [name]: value })
+  }
+
+  handleSearchClick = (event) => {
+    // console.log(event.target.id)
+    const foodID = event.target.id;
+
+    this.getFacts(foodID)
+    alert("food added")
+    this.setState({ meal: '', description: '', calories: '' });
+  }
+
+
+  getFacts = async (foodID) => {
+    try {
+      const response = await axios.get(`https://api.nal.usda.gov/ndb/V2/reports?ndbno=${foodID}&type=b&format=json&api_key=6fDIrXqchfLy0iPmxZD8eSYlduVoCjOxkGhaUsoH`);
+      const nutrientList = (response.data.foods[0].food.nutrients)
+      const foodClicked = (response.data.foods[0].food.desc.name)
+      console.log(foodClicked)
+      const caloriesArr = nutrientList.filter(function (el) {
+        return el.name === "Energy" && el.unit === "kcal";
+      });
+      const calories = caloriesArr[0].value;
+      const unit = caloriesArr[0].unit;
+      const servingUnit = caloriesArr[0].measures[0].label;
+      const servingQty = caloriesArr[0].measures[0].qty;
+      const description = servingQty + servingUnit;
+      // const caloriesWUnit = calories + unit
+
+      console.log(calories, unit, servingQty, servingUnit)
+      // this.props.modalSubmit({ meal: foodClicked, description: description, calories: calories })
+      // postDiary(this.props.userId, this.state);
+      this.setState({ calories: calories, description: description, meal: foodClicked }, () => {
+        this.modalSubmit(this.state)
+      });
+    } catch {
+      console.error("error getting facts")
+    }
+  }
+  modalSubmit = (data) => {
+    const { userId } = this.state;
+    let { points } = this.state;
+    postDiary(this.props.userId, data);
+    this.setState({ meal: '', description: '', calories: '' });
+    getDiary(userId).then(response => this.setState({ diary: response.data }));
+    // console.log(this.state.diary)
+    updateUser(userId, { points }).then(res =>
+      getUser(userId).then(response => {
+        const { points } = response.data[0];
+        this.setState({ points });
+
+      },
+      )
+    )
+  }
+
   render() {
     return (
       <div className="dashBodyContent">
-        <div className="row">
-          <Calories userCalories={this.state.userCalories} />
-          <div className="col-md-6">
+        <div className="row dash-container container-fluid mx-0 px-0 mt-3">
+
+          <div className="col-md-5 leftCol">
             <div className="row">
-              <div className="col">
+              <div className="col ">
                 <div className="card cardLook">
                   <div className="card-body">
-                    <h1>current</h1>
+                    <h1></h1>
+                    <Calories userCalories={this.state.userCalories} />
                   </div>
                 </div>
               </div>
             </div>
             <div className="row">
-              <div className="col">
+              <div className="col ">
                 <div className="card cardLook">
                   <div className="card-body">
                     <Weight
                       handleWeightSubmit={this.handleWeightSubmit}
                       handleChange={this.handleChange}
                       weight={this.state.weight}
+                      previousWeights={this.state.previousWeights}
+                      currentWeight={this.state.currentWeight}
                     />
                   </div>
                 </div>
@@ -193,8 +311,9 @@ class Dashboard extends Component {
                 </div>
               </div>
             </div>
+
           </div>
-          <div className="col-md-6">
+          <div className="col-md-7">
             <div className="card cardLook">
               <div className="card-body">
                 <Diary
@@ -203,10 +322,24 @@ class Dashboard extends Component {
                   calories={this.state.calories}
                   handleChange={this.handleChange}
                   handleDiarySubmit={this.handleDiarySubmit}
+                  modalSubmit={this.modalSubmit}
+                  getFacts={this.getFacts}
+                  getFood={this.getFood}
+                  handleClose={this.handleClose}
+                  handleSearchChange={this.handleSearchChange}
+                  handleSearchClick={this.handleSearchClick}
+                  handleSearchSubmit={this.handleSearchSubmit}
+                  handleShow={this.handleShow}
+                  foodKeyword={this.state.foodKeyword}
+                  foodsList={this.state.foodsList}
+                  cardHeader={this.state.cardHeader}
+                  show={this.state.show}
+                  diary={this.state.diary}
                 />
               </div>
             </div>
           </div>
+
         </div>
       </div>
     );

@@ -1,0 +1,63 @@
+.searchbutton{
+    background:#9b2727;
+    border-color:#9b2727;
+}
+
+.directionstext{
+    font-size:1.3em;
+    text-align:center;
+    margin-bottom:20px;
+}
+
+
+.diaryBody{
+    padding-top:30px;
+    padding-bottom:30px;
+    border-bottom:1px solid #ddd;
+}
+
+.mealForm{
+    margin-bottom:40px;
+}
+
+.diaryRowHeader{
+font-weight:bold;
+border-bottom:1px solid #ddd;
+font-size:1.0em;
+}
+
+
+.headerMeal{
+    margin-right:0px;
+}
+
+.headerDescr{
+    margin-right:0px;
+}
+
+
+
+@media (min-width:1200px) {
+
+    .headerMeal{
+        margin-right:15px;
+    }
+    
+    .headerDescr{
+        margin-right:20px;
+    }	
+    
+}
+
+
+@media (min-width:1450px) {
+
+	.headerMeal{
+        margin-right:40px;
+    }
+    
+    .headerDescr{
+        margin-right:40px;
+    }
+    
+}

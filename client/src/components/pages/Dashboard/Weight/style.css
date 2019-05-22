@@ -1,0 +1,53 @@
+.rowHeader{
+    border-bottom:1px solid #ddd;
+    font-weight:bold;
+    /* width:80%; */
+    padding:0; 
+    padding-bottom:3px;
+    margin-bottom:5px;
+    padding-left:12px;
+}
+
+
+.rowBody{
+    width:100%;
+    padding-left:12px;
+    margin-left:0px;
+    border-bottom:1px solid #ddd;
+    padding-top:3px;
+    padding-bottom:3px;
+}
+
+.colDate{
+    padding-left:40px;
+}
+
+
+.headerWeight{
+padding-left:0;
+
+}
+
+.headerDate{
+    padding:0;
+    padding-left:28px;
+}
+
+.colWeight{
+    padding-left:0;
+}
+
+
+.currentWeight{
+    font-size:2.3em;
+}
+
+.currentText{
+margin-top:-5px;
+margin-bottom:20px;
+}
+
+.weightlog{
+    background:#9b2727;
+    border-color:#9b2727;
+}
