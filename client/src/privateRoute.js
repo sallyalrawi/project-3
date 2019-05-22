@@ -31,7 +31,7 @@ import Dashboard from './components/pages/Dashboard';
 
 const PrivateRoute = ({ currentUser, path }) => {
   const renderRoute = () =>
-    currentUser ? <Dashboard userId={currentUser.email} /> : <Home />;
+    currentUser ? <Dashboard userId={currentUser.uid} /> : <Home />;
 
   return <Route exact path={path} render={renderRoute} />;
 };

@@ -4,9 +4,40 @@
     margin-bottom:-44px;
     padding-top:79px;
     background:#fff;
+    background:#f2f2f2;
 }
 
 
 .rewardCardWrapper{
     margin-bottom:50px;
+}
+
+.title{
+    background:#fff;
+    padding:20px;
+    text-align:center;
+    color:#333;
+    text-shadow: 0px 2px 2px #ddd;
+    border-bottom:1px solid #ddd;
+}
+
+.message{
+    background:#9b2727;
+    color:#fff;
+    margin-bottom:20px;
+    text-align:center;
+    font-size:1.3em;
+    font-style: italic;
+}
+
+.pointsTotal{
+    color:#9b2727; 
+}
+
+h1{
+    font-size:2.5em;
+}
+
+h5{
+    padding:10px;
 }

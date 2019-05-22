@@ -28,35 +28,38 @@ class SignUp extends Component {
     try {
       await app
         .auth()
-        .createUserWithEmailAndPassword(email.value, password.value);
+        .createUserWithEmailAndPassword(email.value, password.value)
+        .then(response => {
+          const userId = response.user.uid;
 
-      const {
-        name,
-        gender,
-        age,
-        heightFeet,
-        heightInches,
-        weight
-      } = this.state;
-      const userHeight = parseInt(heightFeet) + parseInt(heightInches);
-      const user = {
-        name,
-        gender,
-        age,
-        userHeight
-      };
-      postUser(email.value, user);
-      postWeight(email.value, { weight });
-      this.setState({
-        name: '',
-        gender: '',
-        age: '',
-        heightFeet: '',
-        heightInches: '',
-        weight: ''
-      });
+          const {
+            name,
+            gender,
+            age,
+            heightFeet,
+            heightInches,
+            weight
+          } = this.state;
+          const userHeight = parseInt(heightFeet) + parseInt(heightInches);
+          const user = {
+            name,
+            gender,
+            age,
+            userHeight
+          };
+          postUser(userId, user);
+          postWeight(userId, { weight });
+          this.setState({
+            name: '',
+            gender: '',
+            age: '',
+            heightFeet: '',
+            heightInches: '',
+            weight: ''
+          });
 
-      this.props.history.push('/dashboard');
+          this.props.history.push('/dashboard');
+        });
     } catch (error) {
       alert(error);
     }

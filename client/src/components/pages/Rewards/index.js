@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import './style.css';
 import Card from './Card';
-import Navigation from '../../../components/features/Navigation';
-import Footer from '../../../components/features/Footer';
 import { getRewards, purchaseReward, getUser } from '../../../api';
 
 const renderCards = (rewards, handlePurchase) =>
@@ -20,7 +18,11 @@ class Rewards extends Component {
 
   componentDidMount() {
     this.loadRewards();
-    this.loadUser(this.props.currentUser.email);
+    this.loadUser(this.props.currentUser.uid);
+  }
+
+  componentDidUpdate() {
+    this.loadUser(this.props.currentUser.uid);
   }
 
   async loadRewards() {
@@ -46,14 +48,14 @@ class Rewards extends Component {
   };
 
   handlePurchase = async e => {
-    const { email } = this.props.currentUser;
+    const { uid } = this.props.currentUser;
     const { cost } = e.target.dataset;
     const { points } = this.state;
     const total = points - cost;
     if (total >= 0) {
       try {
-        purchaseReward(email, { points: total });
-        const response = await getUser(email);
+        purchaseReward(uid, { points: total });
+        const response = await getUser(uid);
         const { points } = response.data[0];
         this.setState({ points, message: 'Purchase Successful!' });
       } catch (error) {
@@ -68,19 +70,23 @@ class Rewards extends Component {
     return (
       <div className="rewardbody">
         <div className="rewardBodyContent">
-          <div className="rewardCardWrapper container-fluid">
-          <h1>
-            Name: {this.state.user_name} Points: {this.state.points}{' '}
-            {this.state.message}
-          </h1>
-          <div className="card-group">
-            {renderCards(this.state.rewards, this.handlePurchase)}
+          <div className="title">
+            <h1>
+              {this.state.user_name}'s CashCal Rewards Balance:{' '}
+              <strong className="pointsTotal">{this.state.points}</strong>{' '}
+            </h1>
           </div>
+          <div className="message">
+          <h5>{this.state.message}</h5>
+          </div>
+          <div className="rewardCardWrapper container-fluid">
+            <div className="card-group">
+              {renderCards(this.state.rewards, this.handlePurchase)}
+            </div>
           </div>
         </div>
       </div>
     );
   }
 }
-
 export default Rewards;

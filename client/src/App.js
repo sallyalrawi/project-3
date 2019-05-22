@@ -67,7 +67,6 @@ const App = () => {
   const path = currentUser ? '/dashboard' : '/';
   return (
     <div className="bodyContent">
-      {/* <Navigation className={handleNav}/> */}
       <Navigation />
       <Router>
         <Fragment>
