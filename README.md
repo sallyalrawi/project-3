@@ -1,5 +1,3 @@
-# CashCal App
-
 ![CashCal](/client/public/images/cashcal2.png)
 
 ***
