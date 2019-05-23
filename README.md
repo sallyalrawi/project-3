@@ -12,8 +12,6 @@ CalCa$h is a new form of online rewards currency you earn for free by using
 CalCa$h is earned when the user logs their weight or tracks their food and can be redeemed for real-world rewards from our advertising partners like comp hotel stays, merchandise credits, or a swedish massage
 
 
-![CashCal](/client/public/images/CashCal-Demo.gif)
-
 # Created by:
 - #### Sally Alrawi
 - #### Chris Cass
