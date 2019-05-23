@@ -1,4 +1,4 @@
-# project-3 "CashCal"
+CashCal App
 
 ![HealthApp](https://media.giphy.com/media/3o7qEbropHw3JomCHe/giphy.gif "Running Man")
 
